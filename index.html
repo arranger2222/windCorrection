@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <h1>Задачі на визначення поправок на вітер</h1>
+    <h3 class="wind-direction">Напрямок вітру</h3>
+    <p class="direct">--</p>
+    <h3 class="wind-speed">Швидкість вітру</h3>
+    <p class="speed">-- м/с</p>
+    <h3 class="ballistic-koeff">Коефіцієнт зносу кулі</h3>
+    <p class="koef">-- mil</p>
+    <button type="button" class="random">Нова задача</button><br />
+
+    <form class="form" autocomplete="off" onsubmit="handleSubmit(event)">
+      <p>Введіть свою відповідь</p>
+      <input
+        type="text"
+        name="correction"
+        class="result-input"
+        placeholder="Введіть тут значення поправки з точністю до десятих"
+      />
+      <div>
+        <label>
+          <input
+            type="radio"
+            name="direction"
+            value="l+"
+            class="direction-input"
+          />
+          L+
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="direction"
+            value="r+"
+            class="direction-input"
+          />
+          R+
+        </label>
+      </div>
+      <button type="submit" class="check">Перевірити</button>
+    </form>
+
+    <h3 class="answer">Результат:</h3>
+    <p class="answer-message"></p>
+    <script src="./js/script.js"></script>
+  </body>
+</html>
