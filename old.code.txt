@@ -11,12 +11,9 @@ const form = document.querySelector('.form');
 buttonRandom.addEventListener('click', randomHandler);
 submitButton.addEventListener('click', handleSubmit);
 
-directionRadioButtons.forEach(radio => {
-  radio.addEventListener('change', handlerRadioButton);
-});
 let clickCorrection = 0;
 let leftOrRight = '';
-let makeDisable = true;
+let isDataGenerated = false;
 
 let userClickCorrection = 0;
 let userLeftOrRightDirection = '';
@@ -40,10 +37,6 @@ const hours = [
   '23.00',
 ];
 
-function handlerRadioButton() {
-  setSubmitButtonState(true);
-}
-
 function randomHandler() {
   const indexOfDirect = getRandomValue(0, 15);
   const windDirection = hours[indexOfDirect];
@@ -55,19 +48,21 @@ function randomHandler() {
   windCorrections(windSpeed, windCoeff, koefficient);
   answerText.textContent = '';
   clearForm();
+  isDataGenerated = true;
 
   directText.textContent = windDirection;
   speedText.textContent = `${windSpeed} м/с`;
   koefText.textContent = `${koefficient} mil`;
-
-  setSubmitButtonState(false);
 }
 
-function setSubmitButtonState(toggle) {
-  return toggle
-    ? (submitButton.disabled = false)
-    : (submitButton.disabled = true);
+function setSubmitButtonState() {
+  submitButton.disabled =
+    !isDataGenerated ||
+    !correctionInput.value ||
+    !Array.from(directionRadioButtons).some(radio => radio.checked);
 }
+
+setSubmitButtonState();
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -86,9 +81,11 @@ function handleSubmit(event) {
   ) {
     message = 'Відповідь вірна!';
     answerText.classList.add('correct');
+    // console.log('answer right!');
   } else {
-    message = `Відповідь не вірна :(  Правильна відповідь: ${clickCorrection} clicks ${leftOrRight.toUpperCase()}`;
+    message = `Відповідь не вірна :(  Правильна відповідь: ${clickCorrection} clicks ${leftOrRight.toLocaleUpperCase()}`;
     answerText.classList.add('wrong');
+    // console.log('answer wrong');
   }
   answerText.textContent = message;
 }
@@ -98,7 +95,8 @@ function getRandomValue(min, max) {
 }
 
 function windCorrections(speed, direct, koeff) {
-  clickCorrection = (speed * direct * koeff).toFixed(1) * 10;
+  const result = speed * direct * koeff;
+  clickCorrection = Number(result.toFixed(1)) * 10;
 }
 
 function directCoefficient(hour) {
