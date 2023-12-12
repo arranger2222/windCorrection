@@ -60,6 +60,10 @@ function randomHandler() {
   speedText.textContent = `${windSpeed} м/с`;
   koefText.textContent = `${koefficient} mil`;
 
+  directText.classList.add('active');
+  speedText.classList.add('active');
+  koefText.classList.add('active');
+
   setSubmitButtonState(false);
 }
 
@@ -86,9 +90,11 @@ function handleSubmit(event) {
   ) {
     message = 'Відповідь вірна!';
     answerText.classList.add('correct');
+    answerText.classList.remove('wrong');
   } else {
-    message = `Відповідь не вірна :(  Правильна відповідь: ${clickCorrection} clicks ${leftOrRight.toUpperCase()}`;
+    message = `Відповідь невірна :(  Правильна відповідь: ${clickCorrection} clicks ${leftOrRight.toUpperCase()}`;
     answerText.classList.add('wrong');
+    answerText.classList.remove('correct');
   }
   answerText.textContent = message;
 }

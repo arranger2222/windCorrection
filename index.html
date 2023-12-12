@@ -4,51 +4,77 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="./sass/main.css" />
   </head>
   <body>
-    <h1>Задачі на визначення поправок на вітер</h1>
-    <h3 class="wind-direction">Напрямок вітру</h3>
-    <p class="direct">--</p>
-    <h3 class="wind-speed">Швидкість вітру</h3>
-    <p class="speed">-- м/с</p>
-    <h3 class="ballistic-koeff">Коефіцієнт зносу кулі</h3>
-    <p class="koef">-- mil</p>
-    <button type="button" class="random">Нова задача</button><br />
+    <div class="container">
+      <div class="switch">
+        <!-- <div class="switch__circle"></div> -->
+        <div class="content">
+          <h1>Задачі на визначення поправок на вітер</h1>
+          <ul class="input-data-list">
+            <li class="data-list-item">
+              <h3 class="wind-direction">Напрямок вітру</h3>
+              <p class="direct data-value">--</p>
+            </li>
+            <li class="data-list-item">
+              <h3 class="wind-speed">Швидкість вітру</h3>
+              <p class="speed data-value">-- м/с</p>
+            </li>
+            <li class="data-list-item">
+              <h3 class="ballistic-koeff">Коефіцієнт зносу кулі</h3>
+              <p class="koef data-value">-- mil</p>
+            </li>
+          </ul>
+          <button type="button" class="random">Нова задача</button><br />
 
-    <form class="form" autocomplete="off" onsubmit="handleSubmit(event)">
-      <p>Введіть свою відповідь у кліках, ціна кліку барабанчика - 0,1 MRAD</p>
-      <input
-        type="text"
-        name="correction"
-        class="result-input"
-        placeholder="Введіть тут значення поправки з точністю до десятих"
-      />
-      <div>
-        <label>
-          <input
-            type="radio"
-            name="direction"
-            value="l+"
-            class="direction-input"
-          />
-          L+
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="direction"
-            value="r+"
-            class="direction-input"
-          />
-          R+
-        </label>
+          <form class="form" autocomplete="off" onsubmit="handleSubmit(event)">
+            <input
+              type="text"
+              name="correction"
+              class="result-input"
+              placeholder="Введіть кількість кліків та вкажіть напрям*"
+            />
+            <p class="wrong hint">*Ціна кліку барабанчика - 0,1 MRAD</p>
+            <div class="radiobuttons">
+              <label class="direction-input__label">
+                <input
+                  type="radio"
+                  name="direction"
+                  value="l+"
+                  class="direction-input"
+                />
+                L+
+              </label>
+              <label class="direction-input__label">
+                <input
+                  type="radio"
+                  name="direction"
+                  value="center"
+                  class="direction-input"
+                />
+                CENTER
+              </label>
+              <label class="direction-input__label">
+                <input
+                  type="radio"
+                  name="direction"
+                  value="r+"
+                  class="direction-input"
+                />
+                R+
+              </label>
+            </div>
+            <button type="submit" class="check" disabled>Перевірити</button>
+          </form>
+
+          <h3 class="answer">Результат:</h3>
+          <p class="answer-message"></p>
+        </div>
+        <!-- <div class="switch__circle switch__circle--t"></div> -->
       </div>
-      <button type="submit" class="check" disabled>Перевірити</button>
-    </form>
+    </div>
 
-    <h3 class="answer">Результат:</h3>
-    <p class="answer-message"></p>
     <script src="./js/script.js"></script>
   </body>
 </html>

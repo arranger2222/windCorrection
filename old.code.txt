@@ -1,3 +1,5 @@
+https://excalidraw.com/#json=7oF0P1WV0DHw8a8_jByFw,-sOGyCqRg7WDvdn7nTtf5Q
+
 const directionRadioButtons = document.querySelectorAll('.direction-input');
 const correctionInput = document.querySelector('.result-input');
 const answerText = document.querySelector('.answer-message');
