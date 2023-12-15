@@ -38,22 +38,6 @@ body {
   overflow: hidden;
   box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
 }
-.switch__circle {
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  background-color: #ecf0f3;
-  box-shadow: inset 8px 8px 12px #d1d9e6, inset -8px -8px 12px #f9f9f9;
-  bottom: -50%;
-  left: -10%;
-}
-.switch__circle--t {
-  top: -40%;
-  left: 60%;
-  width: 300px;
-  height: 300px;
-}
 .switch__container {
   display: flex;
   justify-content: center;
@@ -151,7 +135,7 @@ h1 {
   border: none;
   outline: none;
   font-family: "Montserrat", sans-serif;
-  background-color: #ecf0f3;
+  background-color: #f9f9f9;
   transition: 0.25s ease;
   border-radius: 8px;
   box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9;

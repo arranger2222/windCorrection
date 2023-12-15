@@ -19,10 +19,8 @@ submitButton.addEventListener('click', handleSubmit);
 directionRadioButtons.forEach(radio => {
   radio.addEventListener('change', handlerRadioButton);
 });
-let clickCorrection = 0;
-// let leftOrRight = '';
-// let makeDisable = true;
 
+let clickCorrection = 0;
 let userClickCorrection = 0;
 let userLeftOrRightDirection = '';
 
