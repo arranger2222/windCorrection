@@ -7,6 +7,7 @@ const directText = document.querySelector('.direct');
 const speedText = document.querySelector('.speed');
 const koefText = document.querySelector('.koef');
 const form = document.querySelector('.form');
+const hint = document.querySelector('.hint-units');
 
 export {
   directionRadioButtons,
@@ -18,4 +19,5 @@ export {
   speedText,
   koefText,
   form,
+  hint,
 };

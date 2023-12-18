@@ -1,32 +1,26 @@
 export let leftOrRight = '';
 export function calculateLefOrRight(hour) {
   switch (hour) {
-    case '13.00':
-    case '13.30':
-    case '14.00':
-    case '14.30':
-    case '15.00':
-    case '15.30':
-    case '16.00':
-    case '16.30':
-    case '17.00':
-    case '17.30':
+    case '1':
+    case '1.5':
+    case '2':
+    case '3':
+    case '4':
+    case '4.5':
+    case '5':
       leftOrRight = 'r+';
       break;
-    case '19.00':
-    case '19.30':
-    case '20.00':
-    case '20.30':
-    case '21.00':
-    case '21.30':
-    case '22.00':
-    case '22.30':
-    case '23.00':
-    case '23.30':
+    case '7':
+    case '7.5':
+    case '8':
+    case '9':
+    case '10':
+    case '10.5':
+    case '11':
       leftOrRight = 'l+';
       break;
-    case '12.00':
-    case '18.00':
+    case '12':
+    case '6':
       leftOrRight = 'center';
       break;
     default:

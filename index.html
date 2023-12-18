@@ -8,12 +8,24 @@
     <link rel="stylesheet" type="text/css" href="./sass/main.css" />
   </head>
   <body>
+    <div class="logo-container">
+      <a href="https://wildfield.com.ua/" class="logo-link">
+        <img src="./assets/logo.png" alt="logo" width="80px" />
+      </a>
+    </div>
     <div class="container">
       <div class="switch">
         <!-- <div class="switch__circle"></div> -->
         <div class="content">
-          <!-- <a href="#" class="navigation">wind</a>
-          <a href="./shoot_correction.html" class="navigation">shoot</a> -->
+          <nav class="navigation">
+            <ul class="nav-list">
+              <li class="nav-item"><a href="#" class="nav-link">wind</a></li>
+              <li class="nav-item">
+                <a href="./shoot_correction.html" class="nav-link">shoot</a>
+              </li>
+            </ul>
+          </nav>
+
           <h1>Задачі на визначення поправок на вітер</h1>
           <ul class="input-data-list">
             <li class="data-list-item">
@@ -38,7 +50,16 @@
               class="result-input"
               placeholder="Введіть кількість кліків та вкажіть напрям*"
             />
-            <p class="wrong hint">*Ціна кліку барабанчика - 0,1 MRAD</p>
+            <p class="wrong hint">
+              *Ціна кліку барабанчика <span class="hint-units">--</span>
+            </p>
+            <!-- <label for="size">Ціна кліка</label>
+            <select id="size" name="size">
+              <option value="xs">Extra Small</option>
+              <option value="s">Small</option>
+              <option value="m" selected>Medium</option>
+              <option value="l">Large</option>
+            </select> -->
             <div class="radiobuttons">
               <label class="direction-input__label">
                 <input

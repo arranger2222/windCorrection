@@ -11,6 +11,7 @@ import {
   speedText,
   koefText,
   form,
+  hint,
 } from './refs.js';
 
 buttonRandom.addEventListener('click', randomHandler);
@@ -23,6 +24,9 @@ directionRadioButtons.forEach(radio => {
 let clickCorrection = 0;
 let userClickCorrection = 0;
 let userLeftOrRightDirection = '';
+let priceOfClick = '';
+let message = '';
+const pricesOfClick = ['0.1 MRAD', '0.5 MRAD', '1/4 MOA', '1/8 MOA'];
 
 function handlerRadioButton() {
   setSubmitButtonState(true);
@@ -34,15 +38,38 @@ function randomHandler() {
   const koefficient = getRandomValue(1, 7) / 10;
   const windSpeed = getRandomValue(1, 9);
   const windCoeff = directCoefficient(windDirection);
+  const indexOfUnit = getRandomValue(0, 3);
+  const unitsName = indexOfUnit === 0 || indexOfUnit === 1 ? 'mil' : 'moa';
+  switch (indexOfUnit) {
+    case 0:
+      priceOfClick = 0.1;
+      break;
+    case 1:
+      priceOfClick = 0.5;
+      break;
+    case 2:
+      priceOfClick = 0.25;
+      break;
+    case 3:
+      priceOfClick = 0.125;
+      break;
+
+    default:
+      break;
+  }
+
+  hint.textContent = pricesOfClick[indexOfUnit];
+
   calculateLefOrRight(windDirection);
 
-  windCorrections(windSpeed, windCoeff, koefficient);
+  windCorrections(windSpeed, windCoeff, koefficient, priceOfClick, unitsName);
   answerText.textContent = '';
   clearForm();
 
   directText.textContent = windDirection;
   speedText.textContent = `${windSpeed} м/с`;
   koefText.textContent = `${koefficient} mil`;
+  // koefText.textContent = `${koefficient} ${coefUnits}`;
 
   directText.classList.add('active');
   speedText.classList.add('active');
@@ -64,11 +91,15 @@ function handleSubmit(event) {
   const directionValue = Array.from(directionRadioButtons).find(
     radio => radio.checked,
   )?.value;
-  let message = '';
 
   userClickCorrection = Number(correctionValue);
   userLeftOrRightDirection = directionValue;
-  if (
+  if (clickCorrection === 0) {
+    message = 'Відповідь вірна!';
+    answerText.classList.add('correct');
+    answerText.classList.remove('wrong');
+  } else if (
+    clickCorrection !== 0 &&
     userClickCorrection === clickCorrection &&
     userLeftOrRightDirection === leftOrRight
   ) {
@@ -87,8 +118,18 @@ function getRandomValue(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 
-function windCorrections(speed, direct, koeff) {
-  clickCorrection = (speed * direct * koeff).toFixed(1) * 10;
+function windCorrections(speed, direct, koeff, price, name) {
+  const calculateCorrections = (speed * direct * koeff).toFixed(2) / price;
+  clickCorrection = Math.round(
+    name === 'moa' ? calculateCorrections * 3.5 : calculateCorrections,
+  );
+  const isNull = clickCorrection < 1;
+  console.log(isNull);
+  if (isNull) {
+    leftOrRight === 'CENTER';
+    message = 'Відповідь вірна!';
+  }
+  console.log('clickCorrection', clickCorrection);
 }
 
 function clearForm() {

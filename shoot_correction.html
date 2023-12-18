@@ -1,101 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f0f0f0;
-    }
-
-    .sniper-scope {
-      position: relative;
-      width: 400px;
-      height: 400px;
-      border: 2px solid #fff;
-      border-radius: 50%;
-      overflow: hidden;
-    }
-
-    .mil-dot {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, transparent 50%, #fff 51%);
-    }
-
-    .crosshair {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 2px;
-      height: 20%;
-      background-color: #fff;
-    }
-
-    .crosshair::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 20%;
-      height: 2px;
-      background-color: #fff;
-    }
-
-    .divisions {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      height: 100%;
-    }
-
-    .division {
-      position: absolute;
-      width: 2px;
-      height: 5%;
-      background-color: #fff;
-      left: 50%;
-      top: 0;
-      transform: translateX(-50%);
-    }
-
-    .division:nth-child(odd) {
-      height: 10%;
-    }
-
-    .division::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      background-color: #fff;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-  </style>
-</head>
-<body>
-  <div class="sniper-scope">
-    <div class="mil-dot"></div>
-    <div class="crosshair"></div>
-    <div class="divisions">
-      <!-- Поділки через однакову відстань -->
-      <div class="division"></div>
-      <div class="division" style="transform: rotate(30deg);"></div>
-      <div class="division" style="transform: rotate(60deg);"></div>
-      <div class="division" style="transform: rotate(90deg);"></div>
-      <div class="division" style="transform: rotate(120deg);"></div>
-      <div class="division" style="transform: rotate(150deg);"></div>
-      <div class="division" style="transform: rotate(180deg);"></div>
-      <div class="division" styl
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="./sass/shoot.css" />
+    <title>Shoot correction</title>
+  </head>
+  <body>
+    <div class="container">
+      <a href="./index.html" class="home-page">home</a>
+      <div class="reticle-container">
+        <div class="reticle-circle">
+          <div class="hit hidden" style="transform: translate(0px, 0px)"></div>
+          <div class="target-circle"></div>
+          <div class="axisX"></div>
+          <ul class="x-mills-list">
+            <li class="x-mills-item"></li>
+            <li class="x-mills-item"></li>
+            <li class="x-mills-item"></li>
+            <li class="x-mills-item"></li>
+            <li class="x-mills-item"></li>
+            <li class="x-mills-item"></li>
+            <li class="x-mills-item"></li>
+            <li class="x-mills-item"></li>
+            <li class="x-mills-item"></li>
+          </ul>
+          <div class="axisY"></div>
+          <ul class="y-mills-list">
+            <li class="y-mills-item"></li>
+            <li class="y-mills-item"></li>
+            <li class="y-mills-item"></li>
+            <li class="y-mills-item"></li>
+            <li class="y-mills-item"></li>
+            <li class="y-mills-item"></li>
+            <li class="y-mills-item"></li>
+            <li class="y-mills-item"></li>
+            <li class="y-mills-item"></li>
+          </ul>
+        </div>
+      </div>
+      <div class="turret">
+        <ul class="turret-list">
+          <li class="turret-item vertical">
+            <img
+              src="./assets/round arrow.png"
+              class="turret-arrow hidden"
+              alt="arrow"
+            />
+            <p class="direct-rotation up-down hidden">U</p>
+            <p class="scale-units">
+              <span class="scale scale-v hidden">1/2</span>
+              <span class="units units-v hidden">MOA</span>
+            </p>
+          </li>
+          <li class="turret-item horizontal">
+            <img
+              src="./assets/round arrow.png"
+              class="turret-arrow hidden"
+              alt="arrow"
+            />
+            <p class="direct-rotation left-right hidden">R</p>
+            <p class="scale-units">
+              <span class="scale scale-h hidden">0.5</span>
+              <span class="units units-h hidden">MRAD</span>
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <button class="random" type="button">Random</button>
+    <script type="module" src="./js/shoot.js"></script>
+  </body>
+</html>
