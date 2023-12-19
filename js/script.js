@@ -13,6 +13,7 @@ import {
   form,
   hint,
 } from './refs.js';
+import { startTimer, stopTimer, resetTimer } from './timer.js';
 
 buttonRandom.addEventListener('click', randomHandler);
 submitButton.addEventListener('click', handleSubmit);
@@ -26,6 +27,14 @@ let userClickCorrection = 0;
 let userLeftOrRightDirection = '';
 let priceOfClick = '';
 let message = '';
+
+let indexOfDirect = 0;
+let windDirection = '';
+let koefficient = '';
+let windSpeed = '';
+let windCoeff = '';
+let indexOfUnit = '';
+
 const pricesOfClick = ['0.1 MRAD', '0.5 MRAD', '1/4 MOA', '1/8 MOA'];
 
 function handlerRadioButton() {
@@ -33,12 +42,12 @@ function handlerRadioButton() {
 }
 
 function randomHandler() {
-  const indexOfDirect = getRandomValue(0, 15);
-  const windDirection = hours[indexOfDirect];
-  const koefficient = getRandomValue(1, 7) / 10;
-  const windSpeed = getRandomValue(1, 9);
-  const windCoeff = directCoefficient(windDirection);
-  const indexOfUnit = getRandomValue(0, 3);
+  indexOfDirect = getRandomValue(0, 15);
+  windDirection = hours[indexOfDirect];
+  koefficient = getRandomValue(1, 7) / 10;
+  windSpeed = getRandomValue(1, 9);
+  windCoeff = directCoefficient(windDirection);
+  indexOfUnit = getRandomValue(0, 3);
   const unitsName = indexOfUnit === 0 || indexOfUnit === 1 ? 'mil' : 'moa';
   switch (indexOfUnit) {
     case 0:
@@ -59,6 +68,7 @@ function randomHandler() {
   }
 
   hint.textContent = pricesOfClick[indexOfUnit];
+  startTimer();
 
   calculateLefOrRight(windDirection);
 
@@ -75,7 +85,7 @@ function randomHandler() {
   speedText.classList.add('active');
   koefText.classList.add('active');
 
-  setSubmitButtonState(false);
+  // setSubmitButtonState(false);
 }
 
 function setSubmitButtonState(toggle) {
@@ -94,8 +104,14 @@ function handleSubmit(event) {
 
   userClickCorrection = Number(correctionValue);
   userLeftOrRightDirection = directionValue;
-  if (clickCorrection === 0) {
+  if (!userClickCorrection && !windDirection) {
+    message = 'Ви не обрали задачу!';
+  } else if (clickCorrection === 0) {
     message = 'Відповідь вірна!';
+    initialSeconds -= 10;
+
+    resetTimer();
+    startTimer();
     answerText.classList.add('correct');
     answerText.classList.remove('wrong');
   } else if (
@@ -124,14 +140,14 @@ function windCorrections(speed, direct, koeff, price, name) {
     name === 'moa' ? calculateCorrections * 3.5 : calculateCorrections,
   );
   const isNull = clickCorrection < 1;
-  console.log(isNull);
   if (isNull) {
     leftOrRight === 'CENTER';
     message = 'Відповідь вірна!';
   }
-  console.log('clickCorrection', clickCorrection);
 }
 
 function clearForm() {
   form.reset();
 }
+
+// ==================== TIMER ==============================

@@ -1,6 +1,7 @@
 @import './partials/_vars';
 
 body {
+  position: relative;
   width: 100%;
   height: 100vh;
   font-family: 'Montserrat', sans-serif;
@@ -10,18 +11,29 @@ body {
   margin: 0;
 }
 
+header {
+  padding: 15px;
+}
+
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
   overflow: hidden;
+  padding-top: 20px;
   width: 100%;
-  height: calc(100% - 100px);
-  // outline: 1px solid red;
+  height: calc(100% - 120px);
+
+  &-header {
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    max-width: 1100px;
+    margin: auto;
+  }
 }
 
 .content {
+  margin: 0 auto;
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -29,23 +41,19 @@ body {
   width: 50%;
   height: 80%;
   min-height: 650px;
-  min-width: 400px;
-  padding: 0 30px;
+  min-width: 300px;
+  padding: 0 20px;
   background-color: $neu-1;
   box-shadow: 10px 10px 10px $neu-2, -10px -10px 10px $white;
   border-radius: 12px;
-  // outline: 1px solid green;
 }
 
 .logo-container {
   height: 70px;
-  padding: 15px;
+  width: 70px;
 }
 
 .logo {
-  position: absolute;
-  // top: 15px;
-  // left: 15px;
   opacity: 0.5;
   width: 60px;
 
@@ -64,7 +72,8 @@ button {
   font-size: medium;
   font-weight: 600;
   cursor: pointer;
-  &:hover {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  & &:hover {
     box-shadow: 6px 6px 10px $neu-2, -6px -6px 10px $white;
     transform: scale(0.985);
     transition: 0.25s;
@@ -80,6 +89,15 @@ button {
     transform: scale(1);
     box-shadow: none;
     cursor: default;
+  }
+}
+
+.again-btn {
+  background-color: $correct;
+  color: $white;
+  box-shadow: 2px 2px 6px $black, -2px -2px 6px $black;
+  &:hover {
+    box-shadow: 2px 2px 6px $gray, -2px -2px 6px $white;
   }
 }
 
@@ -103,7 +121,7 @@ button {
 }
 
 .correct {
-  color: green;
+  color: $correct;
 }
 
 .data-value {
@@ -117,12 +135,20 @@ button {
 
 h1 {
   text-align: center;
-  // margin-top: 50px;
   color: $black;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  padding: 0;
+}
+
 .result-input {
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
   height: 40px;
   margin: 4px 0;
   padding-left: 25px;
@@ -166,18 +192,11 @@ h1 {
   color: $black;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .answer-message {
   font-size: medium;
 }
 
 .navigation {
-  // outline: 1px solid blue;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -188,7 +207,6 @@ form {
   display: flex;
   justify-content: space-around;
   width: 70%;
-  // outline: 1px solid red;
   padding: 0;
 }
 
@@ -201,4 +219,136 @@ form {
   &:hover {
     color: $darkRed;
   }
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+// ========================= SWITCH ==================================
+
+.toggle-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  padding: 0;
+}
+.toggle-title {
+  margin: 0;
+  margin-bottom: 5px;
+  font-size: small;
+}
+
+.toggle-button {
+  width: 40px;
+  height: 20px;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+}
+
+.toggle-switch input {
+  display: none;
+}
+
+.switch-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  height: 26px;
+  width: 56px;
+  background-color: #ccc;
+  border-radius: 13px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.switch-handle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.text-on,
+.text-off {
+  padding: 0 5px;
+  color: #333;
+  font-size: 12px;
+  display: inline-block;
+}
+
+#toggle:checked + .switch-label .switch-handle {
+  transform: translateX(30px);
+}
+
+.toggle-switch input[type='checkbox']:checked + .switch-label {
+  background-color: $correct;
+}
+
+#toggle:checked .switch-handle {
+  background-color: $correct;
+}
+
+#toggle:checked + .switch-label .text-off {
+  color: #aaa;
+}
+
+#toggle:not(:checked) + .switch-label .text-on {
+  color: #aaa;
+}
+
+@media (max-width: 767px) {
+  .toggle-switch input[type='checkbox']:focus + .switch-label {
+    outline: none;
+  }
+}
+
+// ====================== BACKDROP ===============================
+
+.backdrop {
+  position: absolute;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 55%;
+  height: 80%;
+  min-height: 650px;
+  min-width: 340px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 12px;
+  z-index: 10;
+  & p {
+    display: block;
+    color: red;
+    margin: auto;
+    font-size: 40px;
+    cursor: default;
+  }
+}
+
+#timer {
+  font-size: medium;
+  padding: 25px 0;
+  margin: auto;
+  position: absolute;
+  left: 45%;
 }
