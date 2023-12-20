@@ -13,6 +13,7 @@ body {
 
 header {
   padding: 15px;
+  // outline: 1px solid red;
 }
 
 .container {
@@ -29,6 +30,7 @@ header {
     text-align: center;
     max-width: 1100px;
     margin: auto;
+    // outline: 1px solid blue;
   }
 }
 
@@ -48,16 +50,21 @@ header {
   border-radius: 12px;
 }
 
-.logo-container {
-  height: 70px;
-  width: 70px;
-}
+// .logo-container {
+//   // height: 70px;
+//   // width: 70px;
+//   border: 1px solid black;
+//   border-radius: 4px;
+//   opacity: 0.3;
+//   // outline: 1px solid green;
+// }
 
 .logo {
   opacity: 0.5;
   width: 60px;
+  border-radius: 2px;
 
-  filter: drop-shadow(1px 1px 1px #000000);
+  // filter: drop-shadow(1px 1px 1px #000000);
 }
 
 button {
@@ -242,10 +249,11 @@ form {
   justify-content: center;
   align-items: end;
   padding: 0;
+  // outline: 1px solid slateblue;
 }
 .toggle-title {
   margin: 0;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   font-size: small;
 }
 
@@ -274,6 +282,7 @@ form {
   background-color: #ccc;
   border-radius: 13px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  // outline: 1px solid darkolivegreen;
 }
 
 .switch-handle {

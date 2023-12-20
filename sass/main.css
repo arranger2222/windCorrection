@@ -45,15 +45,10 @@ header {
   border-radius: 12px;
 }
 
-.logo-container {
-  height: 70px;
-  width: 70px;
-}
-
 .logo {
   opacity: 0.5;
   width: 60px;
-  filter: drop-shadow(1px 1px 1px #000000);
+  border-radius: 2px;
 }
 
 button {
@@ -240,7 +235,7 @@ form {
 
 .toggle-title {
   margin: 0;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   font-size: small;
 }
 
