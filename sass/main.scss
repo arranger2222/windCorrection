@@ -12,7 +12,11 @@ body {
 }
 
 header {
+  display: flex;
   padding: 15px;
+  // border-bottom: 1px solid $gray;
+  box-shadow: 10px 10px 10px $neu-2, -10px -10px 10px $white;
+  margin-bottom: 20px;
   // outline: 1px solid red;
 }
 
@@ -221,10 +225,19 @@ form {
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
   font-size: medium;
-  color: $purple;
+
+  color: $darkRed;
+  transition: $main-transition;
 
   &:hover {
-    color: $darkRed;
+    color: $accent;
+    transition: $main-transition;
+  }
+  &-disabled {
+    color: gray;
+    &:hover {
+      color: $gray;
+    }
   }
 }
 
@@ -357,6 +370,7 @@ form {
 
 .timer-numbers {
   font-size: medium;
+  height: 19px;
   // padding: 25px 0;
   margin: 0 auto;
   // outline: 1px solid red;
@@ -364,4 +378,9 @@ form {
   &-hidden {
     visibility: hidden;
   }
+}
+
+.nav-item {
+  display: flex;
+  align-items: flex-end;
 }

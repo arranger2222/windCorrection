@@ -10,7 +10,10 @@ body {
 }
 
 header {
+  display: flex;
   padding: 15px;
+  box-shadow: 10px 10px 10px #d1d9e6, -10px -10px 10px #f9f9f9;
+  margin-bottom: 20px;
 }
 
 .container {
@@ -203,10 +206,18 @@ form {
   text-decoration: none;
   font-family: "Montserrat", sans-serif;
   font-size: medium;
-  color: #4b70e2;
+  color: #801515;
+  transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .nav-link:hover {
-  color: #801515;
+  color: #ff702e;
+  transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-link-disabled {
+  color: gray;
+}
+.nav-link-disabled:hover {
+  color: #a0a5a8;
 }
 
 .hidden {
@@ -335,9 +346,15 @@ form {
 
 .timer-numbers {
   font-size: medium;
+  height: 19px;
   margin: 0 auto;
   text-align: center;
 }
 .timer-numbers-hidden {
   visibility: hidden;
+}
+
+.nav-item {
+  display: flex;
+  align-items: flex-end;
 }/*# sourceMappingURL=main.css.map */
