@@ -73,9 +73,9 @@ function hideTimerMessage() {
 
 function toggleTimerVisibilityToggle() {
   timerVisible = !timerVisible;
-  timerElement.classList.contains('hidden')
-    ? timerElement.classList.remove('hidden')
-    : timerElement.classList.add('hidden');
+  timerElement.classList.contains('timer-numbers-hidden')
+    ? timerElement.classList.remove('timer-numbers-hidden')
+    : timerElement.classList.add('timer-numbers-hidden');
   timerElement;
   if (timerVisible) {
     timerElement.textContent = `00:00:${initialSeconds}`;

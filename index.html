@@ -15,7 +15,7 @@
   </head>
   <body>
     <header>
-      <!-- ++++++===================== LOGO =========================== -->
+      <!-- ========================== LOGO =========================== -->
       <div class="container container-header">
         <div class="logo-container">
           <a href="https://wildfield.com.ua/" class="logo-link" target="_blank">
@@ -23,9 +23,18 @@
             <img src="./assets/logo-black-text.png" alt="logo" class="logo" />
           </a>
         </div>
+        <!-- ============================ NAVIGATION ================================= -->
+        <nav class="navigation">
+          <ul class="nav-list">
+            <li class="nav-item"><a href="#" class="nav-link">wind</a></li>
+            <li class="nav-item">
+              <a href="./shoot_correction.html" class="nav-link">shoot</a>
+            </li>
+          </ul>
+        </nav>
 
         <!-- ========================= TIMER ============================= -->
-        <div id="timer" class="timer-numbers hidden"></div>
+
         <!-- <button class="start-timer">Start</button> -->
         <!-- <button onclick="stopTimer()">Stop</button>
         <button onclick="resetTimer()">Reset</button> -->
@@ -47,20 +56,14 @@
         <!-- ======================================================================= -->
       </div>
     </header>
+
     <div class="container">
+      <div id="timer" class="timer-numbers timer-numbers-hidden"></div>
       <div class="content">
         <div class="backdrop hidden">
           <p class="attention">Час вичерпано</p>
           <button class="again-btn">Спробувати ще</button>
         </div>
-        <nav class="navigation">
-          <ul class="nav-list">
-            <li class="nav-item"><a href="#" class="nav-link">wind</a></li>
-            <li class="nav-item">
-              <a href="./shoot_correction.html" class="nav-link">shoot</a>
-            </li>
-          </ul>
-        </nav>
 
         <h1>Задачі на визначення поправок на вітер</h1>
         <ul class="input-data-list">

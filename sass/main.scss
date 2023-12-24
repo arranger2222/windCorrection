@@ -46,8 +46,8 @@ header {
   min-width: 300px;
   padding: 0 20px;
   background-color: $neu-1;
-  box-shadow: 10px 10px 10px $neu-2, -10px -10px 10px $white;
-  border-radius: 12px;
+  // box-shadow: 10px 10px 10px $neu-2, -10px -10px 10px $white;
+  // border-radius: 12px;
 }
 
 // .logo-container {
@@ -249,6 +249,7 @@ form {
   justify-content: center;
   align-items: end;
   padding: 0;
+  width: 130px;
   // outline: 1px solid slateblue;
 }
 .toggle-title {
@@ -354,10 +355,13 @@ form {
   }
 }
 
-#timer {
+.timer-numbers {
   font-size: medium;
-  padding: 25px 0;
-  margin: auto;
-  position: absolute;
-  left: 45%;
+  // padding: 25px 0;
+  margin: 0 auto;
+  // outline: 1px solid red;
+  text-align: center;
+  &-hidden {
+    visibility: hidden;
+  }
 }

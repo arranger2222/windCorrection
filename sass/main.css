@@ -41,8 +41,6 @@ header {
   min-width: 300px;
   padding: 0 20px;
   background-color: #ecf0f3;
-  box-shadow: 10px 10px 10px #d1d9e6, -10px -10px 10px #f9f9f9;
-  border-radius: 12px;
 }
 
 .logo {
@@ -231,6 +229,7 @@ form {
   justify-content: center;
   align-items: end;
   padding: 0;
+  width: 130px;
 }
 
 .toggle-title {
@@ -334,10 +333,11 @@ form {
   cursor: default;
 }
 
-#timer {
+.timer-numbers {
   font-size: medium;
-  padding: 25px 0;
-  margin: auto;
-  position: absolute;
-  left: 45%;
+  margin: 0 auto;
+  text-align: center;
+}
+.timer-numbers-hidden {
+  visibility: hidden;
 }/*# sourceMappingURL=main.css.map */

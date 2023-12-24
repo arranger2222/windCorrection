@@ -35,7 +35,7 @@ let windSpeed = '';
 let windCoeff = '';
 let indexOfUnit = '';
 
-const pricesOfClick = ['0.1 MRAD', '0.5 MRAD', '1/4 MOA', '1/8 MOA'];
+const pricesOfClick = ['0.1 MRAD', '0.5 ТИС', '1/4 MOA', '1/8 MOA'];
 
 function handlerRadioButton() {
   setSubmitButtonState(true);
