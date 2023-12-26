@@ -12,7 +12,11 @@ document.addEventListener('keydown', hideOnEsc);
 againBtn.addEventListener('click', hideTimerMessage);
 toggleElement.addEventListener('click', toggleTimerVisibilityToggle);
 
-export function startTimer() {
+export function startTimer(value) {
+  if (value) {
+    initialSeconds -= value;
+    console.log(initialSeconds);
+  }
   timerElement.classList.add('active');
   if (!timerInterval && timerVisible) {
     timerInterval = setInterval(updateTimer, 1000);
@@ -26,8 +30,13 @@ export function stopTimer() {
   }
 }
 
-export function resetTimer() {
+export function resetTimer(value) {
   stopTimer();
+  if (value) {
+    initialSeconds -= value;
+    console.log(initialSeconds);
+  }
+  // initialSeconds = 60;
   seconds = initialSeconds;
   updateTimerDisplay();
   hideTimerMessage();
@@ -65,6 +74,7 @@ function formatTime(timeInSeconds) {
 
 function showTimerMessage() {
   backdrop.classList.remove('hidden');
+  initialSeconds = 60;
 }
 
 function hideTimerMessage() {
@@ -79,11 +89,12 @@ function toggleTimerVisibilityToggle() {
     : timerElement.classList.add('timer-numbers-hidden');
   timerElement;
   if (timerVisible) {
+    initialSeconds = 60;
     timerElement.textContent = `00:00:${initialSeconds}`;
   }
   if (!timerVisible) {
     stopTimer();
-    resetTimer();
+    resetTimer(initialSeconds);
   }
 
   timerVisible = toggleElement.checked;

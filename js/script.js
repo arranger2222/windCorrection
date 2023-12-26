@@ -108,9 +108,9 @@ function handleSubmit(event) {
     message = 'Ви не обрали задачу!';
   } else if (clickCorrection === 0) {
     message = 'Відповідь вірна!';
-    // initialSeconds -= 10;
 
-    resetTimer();
+    stopTimer();
+    resetTimer(5);
     startTimer();
     answerText.classList.add('correct');
     answerText.classList.remove('wrong');
@@ -149,5 +149,3 @@ function windCorrections(speed, direct, koeff, price, name) {
 function clearForm() {
   form.reset();
 }
-
-// ==================== TIMER ==============================
