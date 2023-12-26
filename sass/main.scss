@@ -16,7 +16,7 @@ header {
   padding: 15px;
   // border-bottom: 1px solid $gray;
   box-shadow: 10px 10px 10px $neu-2, -10px -10px 10px $white;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
   // outline: 1px solid red;
 }
 
@@ -347,17 +347,17 @@ form {
 // ====================== BACKDROP ===============================
 
 .backdrop {
+  box-sizing: border-box;
   position: absolute;
+  padding: 50px 0;
   opacity: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 55%;
-  height: 80%;
-  min-height: 650px;
-  min-width: 340px;
+  width: 100%;
+  height: calc(100% - 93px);
   background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 12px;
+
   z-index: 10;
   & p {
     display: block;
@@ -371,7 +371,7 @@ form {
 .timer-numbers {
   font-size: medium;
   height: 19px;
-  // padding: 25px 0;
+  padding: 25px 0;
   margin: 0 auto;
   // outline: 1px solid red;
   text-align: center;

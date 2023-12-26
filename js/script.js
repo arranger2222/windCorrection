@@ -108,7 +108,7 @@ function handleSubmit(event) {
     message = 'Ви не обрали задачу!';
   } else if (clickCorrection === 0) {
     message = 'Відповідь вірна!';
-    initialSeconds -= 10;
+    // initialSeconds -= 10;
 
     resetTimer();
     startTimer();

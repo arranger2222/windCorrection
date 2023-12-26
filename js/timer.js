@@ -8,6 +8,7 @@ let seconds = initialSeconds;
 let timerInterval;
 let timerVisible = false;
 
+document.addEventListener('keydown', hideOnEsc);
 againBtn.addEventListener('click', hideTimerMessage);
 toggleElement.addEventListener('click', toggleTimerVisibilityToggle);
 
@@ -86,4 +87,10 @@ function toggleTimerVisibilityToggle() {
   }
 
   timerVisible = toggleElement.checked;
+}
+
+function hideOnEsc(event) {
+  if (event.key === 'Escape') {
+    hideTimerMessage();
+  }
 }
