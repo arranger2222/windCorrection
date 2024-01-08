@@ -25,7 +25,7 @@ let coordY = 0;
 randomBtn.addEventListener('click', randomHandler);
 
 const coords = [-100, -66, -32, 0, 32, 66, 100];
-const scaleValues = ['0.1', '0.2', '0.5', '1/2', '1/4'];
+const scaleValues = ['0.1 MRAD', '0.5 ТИС', '1/4 MOA', '1/8 MOA'];
 const objToVisible = {
   leftRightContent,
   horizontalArrow,

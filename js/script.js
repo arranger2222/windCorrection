@@ -88,12 +88,6 @@ function randomHandler() {
   // setSubmitButtonState(false);
 }
 
-function setSubmitButtonState(toggle) {
-  return toggle
-    ? (submitButton.disabled = false)
-    : (submitButton.disabled = true);
-}
-
 function handleSubmit(event) {
   event.preventDefault();
 

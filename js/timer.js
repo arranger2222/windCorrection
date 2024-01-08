@@ -4,7 +4,7 @@ const toggleElement = document.getElementById('toggle');
 const againBtn = document.querySelector('.again-btn');
 
 let initialSeconds = 60;
-let seconds = initialSeconds;
+let seconds = 0;
 let timerInterval;
 let timerVisible = false;
 
@@ -15,10 +15,10 @@ toggleElement.addEventListener('click', toggleTimerVisibilityToggle);
 export function startTimer(value) {
   if (value) {
     initialSeconds -= value;
-    console.log(initialSeconds);
   }
-  timerElement.classList.add('active');
-  if (!timerInterval && timerVisible) {
+  seconds = initialSeconds;
+  if (timerVisible && !timerInterval) {
+    timerElement.classList.add('active');
     timerInterval = setInterval(updateTimer, 1000);
   }
 }
@@ -34,7 +34,6 @@ export function resetTimer(value) {
   stopTimer();
   if (value) {
     initialSeconds -= value;
-    console.log(initialSeconds);
   }
   // initialSeconds = 60;
   seconds = initialSeconds;
