@@ -111,7 +111,8 @@ function handleSubmit(event) {
 
     stopTimer();
     resetTimer(5);
-    startTimer();
+    randomHandler();
+    // startTimer(5);
     answerText.classList.add('correct');
     answerText.classList.remove('wrong');
   } else if (
@@ -122,6 +123,10 @@ function handleSubmit(event) {
     message = 'Відповідь вірна!';
     answerText.classList.add('correct');
     answerText.classList.remove('wrong');
+    stopTimer();
+    resetTimer();
+    startTimer(5);
+    randomHandler();
   } else {
     message = `Відповідь невірна :(  Правильна відповідь: ${clickCorrection} clicks ${leftOrRight.toUpperCase()}`;
     answerText.classList.add('wrong');
