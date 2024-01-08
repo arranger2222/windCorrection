@@ -48,6 +48,7 @@ function randomHandler() {
   windSpeed = getRandomValue(1, 9);
   windCoeff = directCoefficient(windDirection);
   indexOfUnit = getRandomValue(0, 3);
+  setSubmitButtonState(false);
   const unitsName = indexOfUnit === 0 || indexOfUnit === 1 ? 'mil' : 'moa';
   switch (indexOfUnit) {
     case 0:
