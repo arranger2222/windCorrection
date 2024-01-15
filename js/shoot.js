@@ -1,32 +1,61 @@
-const randomBtn = document.querySelector('.random');
-const hit = document.querySelector('.hit');
+const horizontalArrow = document.querySelector('.horizontal > img');
+const verticalArrow = document.querySelector('.vertical > img');
 const leftRightContent = document.querySelector('.left-right');
+const answerText = document.querySelector('.answer-message');
 const upDownContent = document.querySelector('.up-down');
+const randomBtn = document.querySelector('.random');
+const vRadio = document.querySelectorAll('.vRadio');
+const hRadio = document.querySelectorAll('.hRadio');
+const form = document.querySelector('.form-shoot');
 const scaleV = document.querySelector('.scale-v');
 const scaleH = document.querySelector('.scale-h');
-const verticalArrow = document.querySelector('.vertical > img');
-const horizontalArrow = document.querySelector('.horizontal > img');
-const submit = document.querySelector('.submit');
+const vInput = document.getElementById('vInput');
+const hInput = document.getElementById('hInput');
+const hit = document.querySelector('.hit');
 
 let leftOrRight = false;
 let clockwiseH = true;
 let scaleValueH = '';
 let milsH = 0;
 let clicksH = 0;
-let directToTurnH = true;
+let directToTurnH = '';
 
 let clockwiseV = true;
 let upOrDown = false;
 let scaleValueV = '';
 let milsV = 0;
 let clicksV = 0;
-let directToTurnV = true;
+let directToTurnV = '';
+
+let vRadioValue = null;
+let hRadioValue = null;
+let vInputValue = null;
+let hInputValue = null;
+let message = '';
 
 let coordX = 0;
 let coordY = 0;
 
-submit.addEventListener('click', submitHandler);
+form.addEventListener('submit', submitHandler);
 randomBtn.addEventListener('click', randomHandler);
+
+function getFormData() {
+  event.preventDefault();
+
+  vRadioValue = Array.from(vRadio).find(radio => radio.checked)?.value;
+  hRadioValue = Array.from(hRadio).find(radio => radio.checked)?.value;
+
+  // vRadioValue = vRadio.checked ? vRadio.value : null;
+  // hRadioValue = hRadio.checked ? hRadio.value : null;
+
+  vInputValue = vInput.value;
+  hInputValue = hInput.value;
+
+  console.log(vRadioValue);
+  console.log(hRadioValue);
+  console.log(vInputValue);
+  console.log(hInputValue);
+}
 
 const coords = [-100, -82, -66, -50, -32, -16, 0, 16, 32, 50, 66, 82, 100];
 // const coords = [-100, -66, -32, 0, 32, 66, 100];
@@ -42,11 +71,31 @@ const objToVisible = {
 };
 
 function submitHandler() {
-  console.log('vertical clicks', clicksV);
-  calculateVerticalTurn();
+  event.preventDefault();
 
-  console.log('horizontal clicks', clicksH);
-  calculateHorizontalTurn();
+  directToTurnV = calculateVerticalTurn();
+  directToTurnH = calculateHorizontalTurn();
+  getFormData();
+  clearForm();
+
+  if (
+    directToTurnV === vRadioValue &&
+    directToTurnH === hRadioValue &&
+    vInputValue == clicksV &&
+    hInputValue == clicksH
+  ) {
+    message = 'answer right!!!';
+    answerText.classList.add('correct');
+    answerText.classList.remove('wrong');
+    console.log('answer right!!!');
+  } else {
+    message = 'answer wrong!';
+    console.log('answer wrong!');
+    answerText.classList.add('wrong');
+    answerText.classList.remove('correct');
+  }
+
+  answerText.textContent = message;
 }
 
 function randomHandler() {
@@ -71,6 +120,10 @@ function randomHandler() {
 
   doVisible(objToVisible);
 }
+
+// function checkAnswer(){
+
+// }
 
 function moveShoot() {
   coordX = getRandomValue(0, 12);
@@ -187,74 +240,64 @@ function calculateClicks(range, units) {
 
 function calculateVerticalTurn() {
   event.preventDefault();
-
+  let vTurn = '';
   if (upDownContent.textContent === 'U' && clockwiseV && coords[coordY] > 0) {
-    directToTurnV = true;
+    directToTurnV = 'right';
   } else if (
     upDownContent.textContent === 'D' &&
     clockwiseV &&
     coords[coordY] < 0
   ) {
-    directToTurnV = true;
+    vTurn = 'right';
   } else if (
     upDownContent.textContent === 'U' &&
     !clockwiseV &&
     coords[coordY] < 0
   ) {
-    directToTurnV = true;
+    vTurn = 'right';
   } else if (coords[coordY] === 0) {
-    directToTurnV = 0;
+    vTurn = 'center';
   } else {
-    directToTurnV = false;
+    vTurn = 'left';
   }
 
-  // directToTurnV =
-  //   upDownContent.textContent === 'D' && !clockwiseV && coords[coordY] > 0
-  //     ? true
-  //     : false;
-
-  console.log('directToTurnV', directToTurnV);
-  // console.log('coords', coords[coordY]);
-  // console.log('letter', upDownContent.textContent);
-  // console.log('за часовою', clockwiseV);
+  return vTurn;
 }
 
 function calculateHorizontalTurn() {
   event.preventDefault();
+  let hTurn = '';
   if (
     leftRightContent.textContent === 'R' &&
     clockwiseH &&
     coords[coordX] < 0
   ) {
-    directToTurnH = true;
+    hTurn = 'right';
   } else if (
     leftRightContent.textContent === 'R' &&
     !clockwiseH &&
     coords[coordX] > 0
   ) {
-    directToTurnH = true;
+    hTurn = 'right';
   } else if (
     leftRightContent.textContent === 'L' &&
     clockwiseH &&
     coords[coordX] > 0
   ) {
-    directToTurnH = true;
+    hTurn = 'right';
   } else if (
     leftRightContent.textContent === 'L' &&
     !clockwiseH &&
     coords[coordX] < 0
   ) {
-    directToTurnH = true;
+    hTurn = 'right';
   } else if (coords[coordX] === 0) {
-    directToTurnH = 0;
+    hTurn = 'center';
   } else {
-    directToTurnH = false;
+    hTurn = 'left';
   }
 
-  console.log('directToTurnH', directToTurnH);
-  // console.log('coords', coords[coordX]);
-  // console.log('letter', leftRightContent.textContent);
-  // console.log('за часовою', clockwiseH);
+  return hTurn;
 }
 
 function getRandomValue(min, max) {
@@ -263,4 +306,8 @@ function getRandomValue(min, max) {
 
 function getRandomBoolean() {
   return Math.random() < 0.5;
+}
+
+function clearForm() {
+  form.reset();
 }

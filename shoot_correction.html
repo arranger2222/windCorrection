@@ -122,15 +122,32 @@
                   id="vInput"
                   name="vInput"
                   placeholder="Введіть кількість кліків"
+                  min="0"
                 />
                 <label
-                  ><input type="radio" name="vRadio" value="for" /> За</label
+                  ><input
+                    type="radio"
+                    name="vRadio"
+                    value="right"
+                    class="vRadio"
+                  />
+                  За</label
                 >
                 <label
-                  ><input type="radio" name="hRadio" value="null" />0</label
+                  ><input
+                    type="radio"
+                    name="vRadio"
+                    value="center"
+                    class="vRadio"
+                  />0</label
                 >
                 <label
-                  ><input type="radio" name="vRadio" value="against" />
+                  ><input
+                    type="radio"
+                    name="vRadio"
+                    value="left"
+                    class="vRadio"
+                  />
                   Проти</label
                 >
               </label>
@@ -144,18 +161,30 @@
                   id="hInput"
                   name="hInput"
                   placeholder="Введіть кількість кліків"
+                  min="0"
                 />
                 <label
-                  ><input type="radio" name="hRadio" value="for" />За</label
-                >
-                <label
-                  ><input type="radio" name="hRadio" value="null" />0</label
+                  ><input
+                    type="radio"
+                    name="hRadio"
+                    value="right"
+                    class="hRadio"
+                  />За</label
                 >
                 <label
                   ><input
                     type="radio"
                     name="hRadio"
-                    value="against"
+                    value="center"
+                    class="hRadio"
+                  />0</label
+                >
+                <label
+                  ><input
+                    type="radio"
+                    name="hRadio"
+                    value="left"
+                    class="hRadio"
                   />Проти</label
                 >
               </label>
@@ -169,7 +198,7 @@
       <p class="answer-message"></p>
       <button class="random" type="button">Нова задача</button>
     </div>
-    <script src="./js/timer.js" type="module"></script>
+    <!-- <script src="./js/timer.js" type="module"></script> -->
     <script type="module" src="./js/shoot.js"></script>
   </body>
 </html>
