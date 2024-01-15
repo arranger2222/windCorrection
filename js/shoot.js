@@ -4,27 +4,32 @@ const leftRightContent = document.querySelector('.left-right');
 const upDownContent = document.querySelector('.up-down');
 const scaleV = document.querySelector('.scale-v');
 const scaleH = document.querySelector('.scale-h');
-const unitsV = document.querySelector('.units-v');
-const unitsH = document.querySelector('.units-h');
 const verticalArrow = document.querySelector('.vertical > img');
 const horizontalArrow = document.querySelector('.horizontal > img');
+const submit = document.querySelector('.submit');
 
+let leftOrRight = false;
 let clockwiseH = true;
-let scaleValueH = 0;
-let unitsTypeH = '';
-let leftOrRight = '';
+let scaleValueH = '';
+let milsH = 0;
+let clicksH = 0;
+let directToTurnH = true;
 
 let clockwiseV = true;
-let scaleValueV = 0;
-let unitsTypeV = '';
-let upOrDown = '';
+let upOrDown = false;
+let scaleValueV = '';
+let milsV = 0;
+let clicksV = 0;
+let directToTurnV = true;
 
 let coordX = 0;
 let coordY = 0;
 
+submit.addEventListener('click', submitHandler);
 randomBtn.addEventListener('click', randomHandler);
 
-const coords = [-100, -66, -32, 0, 32, 66, 100];
+const coords = [-100, -82, -66, -50, -32, -16, 0, 16, 32, 50, 66, 82, 100];
+// const coords = [-100, -66, -32, 0, 32, 66, 100];
 const scaleValues = ['0.1 MRAD', '0.5 ТИС', '1/4 MOA', '1/8 MOA'];
 const objToVisible = {
   leftRightContent,
@@ -33,10 +38,16 @@ const objToVisible = {
   verticalArrow,
   scaleV,
   scaleH,
-  unitsV,
-  unitsH,
   hit,
 };
+
+function submitHandler() {
+  console.log('vertical clicks', clicksV);
+  calculateVerticalTurn();
+
+  console.log('horizontal clicks', clicksH);
+  calculateHorizontalTurn();
+}
 
 function randomHandler() {
   moveShoot();
@@ -47,35 +58,34 @@ function randomHandler() {
 
   scaleValueH = getScaleValue(scaleH);
   scaleValueV = getScaleValue(scaleV);
-  unitsTypeH = getRandomBoolean();
-  unitsTypeV = getRandomBoolean();
-  getUnits(unitsTypeH, unitsH);
-  getUnits(unitsTypeV, unitsV);
+  clicksH = calculateClicks(milsH, scaleValues.indexOf(scaleValueH));
+  clicksV = calculateClicks(milsV, scaleValues.indexOf(scaleValueV));
+  // console.log('horizontal', { clicksH, clockwiseH });
+  // console.log('vertical', { clicksV, clockwiseV });
+
+  // console.log(scaleValueH);
+  // console.log(scaleValueV);
 
   isLeftOrRight();
   isUpOrDown();
 
   doVisible(objToVisible);
-
-  // console.log('clockwiseH', clockwiseH);
-  // console.log('scaleValueH', scaleValueH);
-  // console.log('unitsTypeH', unitsTypeH);
-  // console.log('leftOrRight', leftOrRight);
-  // console.log('clockwiseV', clockwiseV);
-  // console.log('scaleValueV', scaleValueV);
-  // console.log('unitsTypeV', unitsTypeV);
-  // console.log('upOrDown', upOrDown);
-  // console.log('coordX', coordX);
-  // console.log('coordY', coordY);
 }
 
 function moveShoot() {
-  coordX = getRandomValue(0, 6);
-  coordY = getRandomValue(0, 6);
-  if (coordX === 3 && coordY === 3) {
-    coordX = getRandomValue(0, 6);
-    coordY = getRandomValue(0, 6);
+  coordX = getRandomValue(0, 12);
+  coordY = getRandomValue(0, 12);
+  if (coordX === 6 && coordY === 6) {
+    coordX = getRandomValue(0, 12);
+    coordY = getRandomValue(0, 12);
   }
+  milsH = getMilsFromCoords(coords[coordX]);
+  milsV = getMilsFromCoords(coords[coordY]);
+
+  // console.log('milsH', milsH);
+  // console.log('milsV', milsV);
+  // console.log('X', coords[coordX]);
+  // console.log('Y', coords[coordY]);
   hit.style.transform = `translate(${coords[coordX]}px, ${coords[coordY]}px )`;
 }
 
@@ -100,10 +110,9 @@ function isUpOrDown() {
 }
 
 function getScaleValue(element) {
-  const valueIndex = getRandomValue(0, 4);
-  const value = scaleValues[valueIndex];
-  element.textContent = value;
-  return value;
+  const value = getRandomValue(0, 3);
+  element.textContent = scaleValues[value];
+  return scaleValues[value];
 }
 
 function doVisible(obj) {
@@ -113,8 +122,139 @@ function doVisible(obj) {
   });
 }
 
-function getUnits(param, element) {
-  return param ? (element.textContent = 'MOA') : (element.textContent = 'MRAD');
+const getMilsFromCoords = function (value) {
+  let range = 0;
+  switch (value) {
+    case 16:
+    case -16:
+      range = 0.5;
+      break;
+
+    case 32:
+    case -32:
+      range = 1;
+      break;
+
+    case -50:
+    case 50:
+      range = 1.5;
+      break;
+
+    case -66:
+    case 66:
+      range = 2;
+      break;
+
+    case -82:
+    case 82:
+      range = 2.5;
+      break;
+
+    case -100:
+    case 100:
+      range = 3;
+      break;
+
+    default:
+      0;
+      break;
+  }
+  return range;
+};
+
+function calculateClicks(range, units) {
+  let quantity = 0;
+  // console.log('range', range);
+  // console.log('units', units);
+  switch (units) {
+    case 0:
+      quantity = range * 10;
+      break;
+    case 1:
+      quantity = range * 2;
+      break;
+    case 2:
+      quantity = range * 14;
+      break;
+    case 3:
+      quantity = range * 28;
+      break;
+    default:
+      range;
+  }
+  return quantity;
+}
+
+function calculateVerticalTurn() {
+  event.preventDefault();
+
+  if (upDownContent.textContent === 'U' && clockwiseV && coords[coordY] > 0) {
+    directToTurnV = true;
+  } else if (
+    upDownContent.textContent === 'D' &&
+    clockwiseV &&
+    coords[coordY] < 0
+  ) {
+    directToTurnV = true;
+  } else if (
+    upDownContent.textContent === 'U' &&
+    !clockwiseV &&
+    coords[coordY] < 0
+  ) {
+    directToTurnV = true;
+  } else if (coords[coordY] === 0) {
+    directToTurnV = 0;
+  } else {
+    directToTurnV = false;
+  }
+
+  // directToTurnV =
+  //   upDownContent.textContent === 'D' && !clockwiseV && coords[coordY] > 0
+  //     ? true
+  //     : false;
+
+  console.log('directToTurnV', directToTurnV);
+  // console.log('coords', coords[coordY]);
+  // console.log('letter', upDownContent.textContent);
+  // console.log('за часовою', clockwiseV);
+}
+
+function calculateHorizontalTurn() {
+  event.preventDefault();
+  if (
+    leftRightContent.textContent === 'R' &&
+    clockwiseH &&
+    coords[coordX] < 0
+  ) {
+    directToTurnH = true;
+  } else if (
+    leftRightContent.textContent === 'R' &&
+    !clockwiseH &&
+    coords[coordX] > 0
+  ) {
+    directToTurnH = true;
+  } else if (
+    leftRightContent.textContent === 'L' &&
+    clockwiseH &&
+    coords[coordX] > 0
+  ) {
+    directToTurnH = true;
+  } else if (
+    leftRightContent.textContent === 'L' &&
+    !clockwiseH &&
+    coords[coordX] < 0
+  ) {
+    directToTurnH = true;
+  } else if (coords[coordX] === 0) {
+    directToTurnH = 0;
+  } else {
+    directToTurnH = false;
+  }
+
+  console.log('directToTurnH', directToTurnH);
+  // console.log('coords', coords[coordX]);
+  // console.log('letter', leftRightContent.textContent);
+  // console.log('за часовою', clockwiseH);
 }
 
 function getRandomValue(min, max) {

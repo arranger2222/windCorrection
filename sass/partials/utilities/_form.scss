@@ -1,0 +1,58 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  padding: 0;
+}
+
+.input-data-list {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  width: 90%;
+  margin-bottom: 20px;
+}
+
+.data-value {
+  font-size: medium;
+  margin: 0;
+
+  &.active {
+    color: $darkRed;
+  }
+}
+
+.result-input {
+  width: 100%;
+  max-width: 350px;
+  height: 40px;
+  margin: 4px 0;
+  padding-left: 25px;
+  font-size: 15px;
+  color: $black;
+  letter-spacing: 0.15px;
+  border: none;
+  outline: none;
+  font-family: 'Montserrat', sans-serif;
+  background-color: $white;
+  transition: 0.25s ease;
+  border-radius: 8px;
+  box-shadow: inset 2px 2px 4px $neu-2, inset -2px -2px 4px $white;
+
+  &::placeholder {
+    color: $gray;
+    font-size: small;
+  }
+
+  &:focus {
+    box-shadow: inset 4px 4px 4px $neu-2, inset -4px -4px 4px $white;
+  }
+}
+
+.radiobuttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}

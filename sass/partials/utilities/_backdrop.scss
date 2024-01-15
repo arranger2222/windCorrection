@@ -1,0 +1,21 @@
+.backdrop {
+  box-sizing: border-box;
+  position: absolute;
+  padding: 50px 0;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: calc(100% - 93px);
+  background-color: rgba(0, 0, 0, 0.8);
+
+  z-index: 10;
+  & p {
+    display: block;
+    color: red;
+    margin: auto;
+    font-size: 40px;
+    cursor: default;
+  }
+}

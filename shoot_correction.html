@@ -3,72 +3,173 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="./sass/shoot.css" />
+    <link rel="stylesheet" type="text/css" href="./css/main.css" />
     <title>Shoot correction</title>
   </head>
   <body>
+    <header>
+      <!-- ========================== LOGO =========================== -->
+      <div class="container container-header">
+        <div class="logo-container">
+          <a href="https://wildfield.com.ua/" class="logo-link" target="_blank">
+            <!-- <img src="./assets/logo-white text.png" alt="logo" class="logo" /> -->
+            <img src="./assets/logo-black-text.png" alt="logo" class="logo" />
+          </a>
+        </div>
+        <!-- ============================ NAVIGATION ================================= -->
+        <nav class="navigation">
+          <ul class="nav-list">
+            <li class="nav-item">
+              <a href="./index.html" class="nav-link">wind</a>
+            </li>
+            <li class="nav-item">
+              <a href="./shoot_correction.html" class="nav-link nav-link-active"
+                >shoot</a
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <!-- <div class="toggle-container">
+          <p class="toggle-title">Вправи на час</p>
+          <div class="toggle-switch">
+            <input type="checkbox" id="toggle" />
+            <label for="toggle" class="switch-label">
+              <div class="switch-handle"></div>
+              <span class="text-on">On</span>
+              <span class="text-off">Off</span>
+            </label>
+          </div>
+        </div> -->
+      </div>
+    </header>
+    <div class="backdrop hidden">
+      <p class="attention">Час вичерпано</p>
+      <button class="again-btn">Спробувати ще</button>
+    </div>
+
     <div class="container">
-      <a href="./index.html" class="home-page">home</a>
-      <div class="reticle-container">
-        <div class="reticle-circle">
-          <div class="hit hidden" style="transform: translate(0px, 0px)"></div>
-          <div class="target-circle"></div>
-          <div class="axisX"></div>
-          <ul class="x-mills-list">
-            <li class="x-mills-item"></li>
-            <li class="x-mills-item"></li>
-            <li class="x-mills-item"></li>
-            <li class="x-mills-item"></li>
-            <li class="x-mills-item"></li>
-            <li class="x-mills-item"></li>
-            <li class="x-mills-item"></li>
-            <li class="x-mills-item"></li>
-            <li class="x-mills-item"></li>
-          </ul>
-          <div class="axisY"></div>
-          <ul class="y-mills-list">
-            <li class="y-mills-item"></li>
-            <li class="y-mills-item"></li>
-            <li class="y-mills-item"></li>
-            <li class="y-mills-item"></li>
-            <li class="y-mills-item"></li>
-            <li class="y-mills-item"></li>
-            <li class="y-mills-item"></li>
-            <li class="y-mills-item"></li>
-            <li class="y-mills-item"></li>
-          </ul>
+      <!-- <div id="timer" class="timer-numbers timer-numbers-hidden"></div> -->
+      <h1>Задачі на пристрілку приціла</h1>
+      <div class="content-shoot">
+        <div class="reticle-container">
+          <div class="reticle-circle">
+            <div
+              class="hit hidden"
+              style="transform: translate(0px, 0px)"
+            ></div>
+            <div class="target-circle"></div>
+            <div class="axisX"></div>
+            <ul class="x-mills-list">
+              <li class="x-mills-item"></li>
+              <li class="x-mills-item"></li>
+              <li class="x-mills-item"></li>
+              <li class="x-mills-item"></li>
+              <li class="x-mills-item"></li>
+              <li class="x-mills-item"></li>
+              <li class="x-mills-item"></li>
+              <li class="x-mills-item"></li>
+              <li class="x-mills-item"></li>
+            </ul>
+            <div class="axisY"></div>
+            <ul class="y-mills-list">
+              <li class="y-mills-item"></li>
+              <li class="y-mills-item"></li>
+              <li class="y-mills-item"></li>
+              <li class="y-mills-item"></li>
+              <li class="y-mills-item"></li>
+              <li class="y-mills-item"></li>
+              <li class="y-mills-item"></li>
+              <li class="y-mills-item"></li>
+              <li class="y-mills-item"></li>
+            </ul>
+          </div>
+          <p class="info">*Сітка прицілювання - Mil-Dot</p>
+        </div>
+        <div class="info-container">
+          <div class="turret">
+            <ul class="turret-list">
+              <li class="turret-item vertical">
+                <img
+                  src="./assets/round arrow.png"
+                  class="turret-arrow hidden"
+                  alt="arrow"
+                />
+                <p class="direct-rotation up-down hidden">U</p>
+                <p class="scale-units">
+                  <span class="scale scale-v hidden">0.1 MRAD</span>
+                </p>
+              </li>
+              <li class="turret-item horizontal">
+                <img
+                  src="./assets/round arrow.png"
+                  class="turret-arrow hidden"
+                  alt="arrow"
+                />
+                <p class="direct-rotation left-right hidden">R</p>
+                <p class="scale-units">
+                  <span class="scale scale-h hidden">1/4 MOA</span>
+                </p>
+              </li>
+            </ul>
+          </div>
+          <form class="form form-shoot">
+            <div class="form__block">
+              <label for="vInput"
+                >Vertical:
+                <input
+                  type="number"
+                  id="vInput"
+                  name="vInput"
+                  placeholder="Введіть кількість кліків"
+                />
+                <label
+                  ><input type="radio" name="vRadio" value="for" /> За</label
+                >
+                <label
+                  ><input type="radio" name="hRadio" value="null" />0</label
+                >
+                <label
+                  ><input type="radio" name="vRadio" value="against" />
+                  Проти</label
+                >
+              </label>
+            </div>
+
+            <div class="form__block">
+              <label for="hInput"
+                >Horizontal:
+                <input
+                  type="number"
+                  id="hInput"
+                  name="hInput"
+                  placeholder="Введіть кількість кліків"
+                />
+                <label
+                  ><input type="radio" name="hRadio" value="for" />За</label
+                >
+                <label
+                  ><input type="radio" name="hRadio" value="null" />0</label
+                >
+                <label
+                  ><input
+                    type="radio"
+                    name="hRadio"
+                    value="against"
+                  />Проти</label
+                >
+              </label>
+            </div>
+
+            <button type="submit" class="submit">Перевірити</button>
+          </form>
         </div>
       </div>
-      <div class="turret">
-        <ul class="turret-list">
-          <li class="turret-item vertical">
-            <img
-              src="./assets/round arrow.png"
-              class="turret-arrow hidden"
-              alt="arrow"
-            />
-            <p class="direct-rotation up-down hidden">U</p>
-            <p class="scale-units">
-              <span class="scale scale-v hidden">1/2</span>
-              <span class="units units-v hidden">MOA</span>
-            </p>
-          </li>
-          <li class="turret-item horizontal">
-            <img
-              src="./assets/round arrow.png"
-              class="turret-arrow hidden"
-              alt="arrow"
-            />
-            <p class="direct-rotation left-right hidden">R</p>
-            <p class="scale-units">
-              <span class="scale scale-h hidden">0.5</span>
-              <span class="units units-h hidden">MRAD</span>
-            </p>
-          </li>
-        </ul>
-      </div>
+      <h3 class="answer">Результат:</h3>
+      <p class="answer-message"></p>
+      <button class="random" type="button">Нова задача</button>
     </div>
-    <button class="random" type="button">Random</button>
+    <script src="./js/timer.js" type="module"></script>
     <script type="module" src="./js/shoot.js"></script>
   </body>
 </html>

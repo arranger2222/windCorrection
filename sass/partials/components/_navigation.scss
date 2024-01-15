@@ -1,0 +1,38 @@
+.navigation {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-list {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  width: 70%;
+  padding: 0;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: medium;
+
+  color: gray;
+  transition: $main-transition;
+
+  // &:hover {
+  //   color: $accent;
+  //   transition: $main-transition;
+  // }
+  &-active {
+    color: $darkRed;
+    // &:hover {
+    //   color: $gray;
+    // }
+  }
+}
+
+.nav-item {
+  display: flex;
+  align-items: flex-end;
+}

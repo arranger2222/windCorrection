@@ -1,0 +1,40 @@
+button {
+  width: 200px;
+  height: 50px;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  margin: 10px auto 20px;
+  background-color: #4b70e2;
+  color: $neu-1;
+  font-size: medium;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  & &:hover {
+    box-shadow: 6px 6px 10px $neu-2, -6px -6px 10px $white;
+    transform: scale(0.985);
+    transition: 0.25s;
+  }
+  &:active,
+  &:focus {
+    box-shadow: 2px 2px 6px $neu-2, -2px -2px 6px $white;
+    transform: scale(0.97);
+    transition: 0.25s;
+  }
+  &:disabled {
+    background-color: $gray;
+    transform: scale(1);
+    box-shadow: none;
+    cursor: default;
+  }
+}
+
+.again-btn {
+  background-color: $correct;
+  color: $white;
+  box-shadow: 2px 2px 6px $black, -2px -2px 6px $black;
+  &:hover {
+    box-shadow: 2px 2px 6px $gray, -2px -2px 6px $white;
+  }
+}

@@ -1,0 +1,10 @@
+.timer-numbers {
+  font-size: medium;
+  height: 19px;
+  padding: 25px 0;
+  margin: 0 auto;
+  text-align: center;
+  &-hidden {
+    visibility: hidden;
+  }
+}
