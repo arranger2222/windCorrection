@@ -11,7 +11,10 @@ const scaleV = document.querySelector('.scale-v');
 const scaleH = document.querySelector('.scale-h');
 const vInput = document.getElementById('vInput');
 const hInput = document.getElementById('hInput');
-const hit = document.querySelector('.hit');
+const hit = document.querySelector('.target');
+const btn_add = [...document.querySelectorAll('[data-increment]')];
+const btn_remove = [...document.querySelectorAll('[data-decrement]')];
+const inputWrapper = document.querySelector('.input-wrapper');
 
 let leftOrRight = false;
 let clockwiseH = true;
@@ -38,6 +41,31 @@ let coordY = 0;
 
 form.addEventListener('submit', submitHandler);
 randomBtn.addEventListener('click', randomHandler);
+btn_add.forEach(btn => btn.addEventListener('click', increment));
+btn_remove.forEach(btn => btn.addEventListener('click', decrement));
+
+function decrement(e) {
+  const parent = e.target.parentElement;
+  const input = parent.querySelector('input[type="number"]');
+
+  let value = Number(input.value);
+
+  input.value > 0 ? (value -= 1) : (value = 0);
+  if (input.value === 0) {
+    value.input = '';
+    input.value = value;
+  }
+  input.value = value;
+}
+
+function increment(e) {
+  const input = e.target.previousElementSibling;
+
+  let value = Number(input.value);
+
+  value += 1;
+  input.value = value;
+}
 
 function getFormData() {
   event.preventDefault();

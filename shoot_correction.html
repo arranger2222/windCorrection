@@ -30,7 +30,7 @@
           </ul>
         </nav>
 
-        <!-- <div class="toggle-container">
+        <div class="toggle-container">
           <p class="toggle-title">Вправи на час</p>
           <div class="toggle-switch">
             <input type="checkbox" id="toggle" />
@@ -40,7 +40,7 @@
               <span class="text-off">Off</span>
             </label>
           </div>
-        </div> -->
+        </div>
       </div>
     </header>
     <div class="backdrop hidden">
@@ -49,16 +49,20 @@
     </div>
 
     <div class="container">
-      <!-- <div id="timer" class="timer-numbers timer-numbers-hidden"></div> -->
-      <h1>Задачі на пристрілку приціла</h1>
-      <div class="content-shoot">
-        <div class="reticle-container">
-          <div class="reticle-circle">
+      <h1 class="shoot-title">Задачі на пристрілку приціла</h1>
+      <div
+        id="timer"
+        class="timer-numbers timer-numbers-hidden timer-shoot"
+      ></div>
+
+      <div class="wrap">
+        <div class="scope">
+          <div class="scope__circle">
             <div
-              class="hit hidden"
+              class="target hidden"
               style="transform: translate(0px, 0px)"
             ></div>
-            <div class="target-circle"></div>
+            <div class="scope__center"></div>
             <div class="axisX"></div>
             <ul class="x-mills-list">
               <li class="x-mills-item"></li>
@@ -84,8 +88,9 @@
               <li class="y-mills-item"></li>
             </ul>
           </div>
-          <p class="info">*Сітка прицілювання - Mil-Dot</p>
+          <p class="scope__info">*Сітка прицілювання - Mil-Dot</p>
         </div>
+
         <div class="info-container">
           <div class="turret">
             <ul class="turret-list">
@@ -114,91 +119,108 @@
             </ul>
           </div>
           <form class="form form-shoot">
-            <div class="form__block">
-              <label for="vInput"
-                >Vertical:
-                <input
-                  type="number"
-                  id="vInput"
-                  name="vInput"
-                  placeholder="Введіть кількість кліків"
-                  min="0"
-                />
-                <label
-                  ><input
-                    type="radio"
-                    name="vRadio"
-                    value="right"
-                    class="vRadio"
-                  />
-                  За</label
-                >
-                <label
-                  ><input
-                    type="radio"
-                    name="vRadio"
-                    value="center"
-                    class="vRadio"
-                  />0</label
-                >
-                <label
-                  ><input
-                    type="radio"
-                    name="vRadio"
-                    value="left"
-                    class="vRadio"
-                  />
-                  Проти</label
-                >
-              </label>
-            </div>
+            <div class="input-container">
+              <div class="form__block">
+                <label for="vInput" class="InputLabel"
+                  >Вертикальні поправки:
+                  <div class="input-wrapper">
+                    <input
+                      class="input result-input"
+                      type="number"
+                      id="vInput"
+                      name="vInput"
+                      placeholder="0"
+                      min="0"
+                    />
+                    <span data-increment class="input-button add">+</span>
+                    <span data-decrement class="input-button remove">-</span>
+                  </div>
+                  <label
+                    ><input
+                      type="radio"
+                      name="vRadio"
+                      value="right"
+                      class="vRadio"
+                    />
+                    За</label
+                  >
+                  <label
+                    ><input
+                      type="radio"
+                      name="vRadio"
+                      value="center"
+                      class="vRadio"
+                    />
+                    0</label
+                  >
+                  <label
+                    ><input
+                      type="radio"
+                      name="vRadio"
+                      value="left"
+                      class="vRadio"
+                    />
+                    Проти</label
+                  >
+                </label>
+              </div>
 
-            <div class="form__block">
-              <label for="hInput"
-                >Horizontal:
-                <input
-                  type="number"
-                  id="hInput"
-                  name="hInput"
-                  placeholder="Введіть кількість кліків"
-                  min="0"
-                />
-                <label
-                  ><input
-                    type="radio"
-                    name="hRadio"
-                    value="right"
-                    class="hRadio"
-                  />За</label
-                >
-                <label
-                  ><input
-                    type="radio"
-                    name="hRadio"
-                    value="center"
-                    class="hRadio"
-                  />0</label
-                >
-                <label
-                  ><input
-                    type="radio"
-                    name="hRadio"
-                    value="left"
-                    class="hRadio"
-                  />Проти</label
-                >
-              </label>
+              <div class="form__block">
+                <label for="hInput" class="InputLabel"
+                  >Горизонтальні поправки:
+                  <div class="input-wrapper">
+                    <input
+                      class="input result-input"
+                      type="number"
+                      id="hInput"
+                      name="hInput"
+                      placeholder="0"
+                      min="0"
+                    />
+                    <span data-increment class="input-button add">+</span>
+                    <span data-decrement class="input-button remove">-</span>
+                  </div>
+                  <label
+                    ><input
+                      type="radio"
+                      name="hRadio"
+                      value="right"
+                      class="hRadio"
+                    />
+                    За</label
+                  >
+                  <label
+                    ><input
+                      type="radio"
+                      name="hRadio"
+                      value="center"
+                      class="hRadio"
+                    />
+                    0</label
+                  >
+                  <label
+                    ><input
+                      type="radio"
+                      name="hRadio"
+                      value="left"
+                      class="hRadio"
+                    />
+                    Проти</label
+                  >
+                </label>
+              </div>
             </div>
-
             <button type="submit" class="submit">Перевірити</button>
           </form>
         </div>
       </div>
-      <h3 class="answer">Результат:</h3>
-      <p class="answer-message"></p>
-      <button class="random" type="button">Нова задача</button>
+      <div class="answer-wrap">
+        <button class="random" type="button">Нова задача</button>
+        <h3 class="answer">Результат:</h3>
+        <p class="answer-message"></p>
+      </div>
     </div>
-    <!-- <script src="./js/timer.js" type="module"></script> -->
+    <script src="./js/timer.js" type="module"></script>
     <script type="module" src="./js/shoot.js"></script>
   </body>
 </html>
