@@ -131,6 +131,8 @@ function handleSubmit(event) {
     message = `Відповідь невірна :(  Правильна відповідь: ${clickCorrection} clicks ${leftOrRight.toUpperCase()}`;
     answerText.classList.add('wrong');
     answerText.classList.remove('correct');
+    resetTimer();
+    setSubmitButtonState(false);
   }
   answerText.textContent = message;
 }

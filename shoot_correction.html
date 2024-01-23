@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="./css/main.css" />
-    <title>Shoot correction</title>
+    <title>Scope correction</title>
   </head>
   <body>
     <header>
@@ -31,7 +31,7 @@
         </nav>
 
         <div class="toggle-container">
-          <p class="toggle-title">Вправи на час</p>
+          <p class="toggle-title">таймер</p>
           <div class="toggle-switch">
             <input type="checkbox" id="toggle" />
             <label for="toggle" class="switch-label">
@@ -89,6 +89,9 @@
             </ul>
           </div>
           <p class="scope__info">*Сітка прицілювання - Mil-Dot</p>
+          <button class="random random__shoot" type="button">
+            Нова задача
+          </button>
         </div>
 
         <div class="info-container">
@@ -124,6 +127,7 @@
                 <label for="vInput" class="InputLabel"
                   >Вертикальні поправки:
                   <div class="input-wrapper">
+                    <span data-decrement class="input-button remove">-</span>
                     <input
                       class="input result-input"
                       type="number"
@@ -133,7 +137,6 @@
                       min="0"
                     />
                     <span data-increment class="input-button add">+</span>
-                    <span data-decrement class="input-button remove">-</span>
                   </div>
                   <label
                     ><input
@@ -210,14 +213,15 @@
                 </label>
               </div>
             </div>
-            <button type="submit" class="submit">Перевірити</button>
+            <button type="submit" class="submit submit__shoot">
+              Перевірити
+            </button>
           </form>
         </div>
       </div>
       <div class="answer-wrap">
-        <button class="random" type="button">Нова задача</button>
         <h3 class="answer">Результат:</h3>
-        <p class="answer-message"></p>
+        <p class="answer-message answer-message__shoot"></p>
       </div>
     </div>
     <script src="./js/timer.js" type="module"></script>

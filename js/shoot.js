@@ -104,7 +104,7 @@ function submitHandler() {
   directToTurnV = calculateVerticalTurn();
   directToTurnH = calculateHorizontalTurn();
   getFormData();
-  clearForm();
+  // clearForm();
 
   if (
     directToTurnV === vRadioValue &&
@@ -117,13 +117,28 @@ function submitHandler() {
     answerText.classList.remove('wrong');
     console.log('answer right!!!');
   } else {
-    message = 'answer wrong!';
+    console.log('horizontal', { clicksH, clockwiseH });
+    console.log('vertical', { clicksV, clockwiseV });
+    message = `Відповідь невірна:( Правильна відповідь: ${clicksH} кліків ${
+      clockwiseH ? 'за годинниковою стрілкою' : 'проти годинникової стрілки'
+    } по горизонталі та ${clicksV} кліків ${
+      clockwiseV ? 'за годинниковою стрілкою' : 'проти годинникової стрілки'
+    } по вертикалі`;
     console.log('answer wrong!');
     answerText.classList.add('wrong');
     answerText.classList.remove('correct');
   }
 
+  if (!isPageScrolledToBottom()) {
+    scrollToBottom();
+  }
+
   answerText.textContent = message;
+  clearForm();
+}
+
+function scrollToBottom() {
+  window.scrollTo(0, document.body.scrollHeight);
 }
 
 function randomHandler() {
@@ -140,13 +155,14 @@ function randomHandler() {
   // console.log('horizontal', { clicksH, clockwiseH });
   // console.log('vertical', { clicksV, clockwiseV });
 
-  // console.log(scaleValueH);
-  // console.log(scaleValueV);
-
   isLeftOrRight();
   isUpOrDown();
 
   doVisible(objToVisible);
+}
+
+function isPageScrolledToBottom() {
+  return window.innerHeight + window.scrollY >= document.body.scrollHeight;
 }
 
 // function checkAnswer(){
@@ -163,10 +179,6 @@ function moveShoot() {
   milsH = getMilsFromCoords(coords[coordX]);
   milsV = getMilsFromCoords(coords[coordY]);
 
-  // console.log('milsH', milsH);
-  // console.log('milsV', milsV);
-  // console.log('X', coords[coordX]);
-  // console.log('Y', coords[coordY]);
   hit.style.transform = `translate(${coords[coordX]}px, ${coords[coordY]}px )`;
 }
 
