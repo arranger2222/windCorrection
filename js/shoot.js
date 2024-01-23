@@ -35,6 +35,7 @@ let hRadioValue = null;
 let vInputValue = null;
 let hInputValue = null;
 let message = '';
+// let correctWordClick = '';
 
 let coordX = 0;
 let coordY = 0;
@@ -119,11 +120,13 @@ function submitHandler() {
   } else {
     console.log('horizontal', { clicksH, clockwiseH });
     console.log('vertical', { clicksV, clockwiseV });
-    message = `Відповідь невірна:( Правильна відповідь: ${clicksH} кліків ${
-      clockwiseH ? 'за годинниковою стрілкою' : 'проти годинникової стрілки'
-    } по горизонталі та ${clicksV} кліків ${
+    message = `Відповідь невірна:( Правильна відповідь: ${clicksV} ${correctClickWord(
+      clicksV,
+    )} ${
       clockwiseV ? 'за годинниковою стрілкою' : 'проти годинникової стрілки'
-    } по вертикалі`;
+    }  по вертикалі та ${clicksH} ${correctClickWord(clicksH)} ${
+      clockwiseH ? 'за годинниковою стрілкою' : 'проти годинникової стрілки'
+    } по горизонталі`;
     console.log('answer wrong!');
     answerText.classList.add('wrong');
     answerText.classList.remove('correct');
@@ -338,6 +341,23 @@ function calculateHorizontalTurn() {
   }
 
   return hTurn;
+}
+
+function correctClickWord(number) {
+  // if (number < 0 || number % 1 !== 0) {
+  //     return "Некоректне number";
+  // }
+
+  if (number === 1 || (number % 100 > 20 && number % 10 === 1)) {
+    return 'клік';
+  } else if (
+    (number >= 2 && number <= 4) ||
+    (number % 100 > 20 && number % 10 >= 2 && number % 10 <= 4)
+  ) {
+    return 'кліки';
+  } else {
+    return 'кліків';
+  }
 }
 
 function getRandomValue(min, max) {
