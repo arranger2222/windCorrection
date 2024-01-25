@@ -14,6 +14,7 @@ import {
   hint,
 } from './refs.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
+import { correctClickWord } from './correctWordClicks.js';
 
 buttonRandom.addEventListener('click', randomHandler);
 submitButton.addEventListener('click', handleSubmit);
@@ -133,7 +134,9 @@ function handleSubmit(event) {
     startTimer(5);
     randomHandler();
   } else {
-    message = `Відповідь невірна :(  Правильна відповідь: ${clickCorrection} clicks ${leftOrRight.toUpperCase()}`;
+    message = `Відповідь невірна :(  Правильна відповідь: ${clickCorrection} ${correctClickWord(
+      clickCorrection,
+    )} ${leftOrRight.toUpperCase()}`;
     answerText.classList.add('wrong');
     answerText.classList.remove('correct');
     resetTimer();
