@@ -44,12 +44,18 @@ function handlerRadioButton() {
 function randomHandler() {
   indexOfDirect = getRandomValue(0, 15);
   windDirection = hours[indexOfDirect];
-  koefficient = getRandomValue(1, 7) / 10;
+
   windSpeed = getRandomValue(1, 9);
   windCoeff = directCoefficient(windDirection);
   indexOfUnit = getRandomValue(0, 3);
   setSubmitButtonState(false);
-  const unitsName = indexOfUnit === 0 || indexOfUnit === 1 ? 'mil' : 'moa';
+  const unitsName = indexOfUnit === 0 || indexOfUnit === 1 ? 'mil' : 'MOA';
+  koefficient =
+    unitsName === 'mil'
+      ? getRandomValue(1, 6) / 10
+      : getRandomValue(2, 21) / 10;
+  console.log(koefficient);
+  console.log(unitsName);
   switch (indexOfUnit) {
     case 0:
       priceOfClick = 0.1;
@@ -79,7 +85,7 @@ function randomHandler() {
 
   directText.textContent = windDirection;
   speedText.textContent = `${windSpeed} м/с`;
-  koefText.textContent = `${koefficient} mil`;
+  koefText.textContent = `${koefficient} ${unitsName}`;
   // koefText.textContent = `${koefficient} ${coefUnits}`;
 
   directText.classList.add('active');
@@ -141,11 +147,13 @@ function getRandomValue(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 
-function windCorrections(speed, direct, koeff, price, name) {
+function windCorrections(speed, direct, koeff, price) {
   const calculateCorrections = (speed * direct * koeff).toFixed(2) / price;
-  clickCorrection = Math.round(
-    name === 'moa' ? calculateCorrections * 3.5 : calculateCorrections,
-  );
+  clickCorrection = Math.round(calculateCorrections);
+  console.log(clickCorrection);
+  // clickCorrection = Math.round(
+  //   name === 'moa' ? calculateCorrections * 3.5 : calculateCorrections,
+  // );
   const isNull = clickCorrection < 1;
   if (isNull) {
     leftOrRight === 'CENTER';

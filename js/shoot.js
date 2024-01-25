@@ -123,9 +123,17 @@ function submitHandler() {
     message = `Відповідь невірна:( Правильна відповідь: ${clicksV} ${correctClickWord(
       clicksV,
     )} ${
-      clockwiseV ? 'за годинниковою стрілкою' : 'проти годинникової стрілки'
+      clicksV > 0
+        ? clockwiseV
+          ? 'за годинниковою стрілкою'
+          : 'проти годинникової стрілки'
+        : ''
     }  по вертикалі та ${clicksH} ${correctClickWord(clicksH)} ${
-      clockwiseH ? 'за годинниковою стрілкою' : 'проти годинникової стрілки'
+      clicksH > 0
+        ? clockwiseH
+          ? 'за годинниковою стрілкою'
+          : 'проти годинникової стрілки'
+        : ''
     } по горизонталі`;
     console.log('answer wrong!');
     answerText.classList.add('wrong');
