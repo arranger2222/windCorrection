@@ -54,8 +54,7 @@ function randomHandler() {
     unitsName === 'mil'
       ? getRandomValue(1, 6) / 10
       : getRandomValue(2, 21) / 10;
-  console.log(koefficient);
-  console.log(unitsName);
+
   switch (indexOfUnit) {
     case 0:
       priceOfClick = 0.1;
@@ -148,9 +147,9 @@ function getRandomValue(min, max) {
 }
 
 function windCorrections(speed, direct, koeff, price) {
-  const calculateCorrections = (speed * direct * koeff).toFixed(2) / price;
-  clickCorrection = Math.round(calculateCorrections);
-  console.log(clickCorrection);
+  // const calculateCorrections = (speed * direct * koeff).toFixed(2) / price;
+  clickCorrection = Math.round((speed * direct * koeff).toFixed(2) / price);
+
   // clickCorrection = Math.round(
   //   name === 'moa' ? calculateCorrections * 3.5 : calculateCorrections,
   // );
