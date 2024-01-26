@@ -24,15 +24,16 @@ directionRadioButtons.forEach(radio => {
 });
 
 let clickCorrection = 0;
+
 let userClickCorrection = 0;
 let userLeftOrRightDirection = '';
-let priceOfClick = '';
+let priceOfClick = 0;
 let message = '';
 
 let indexOfDirect = 0;
 let windDirection = '';
-let koefficient = '';
-let windSpeed = '';
+let bulletSurfKoef = '';
+let windSpeed = 0;
 let windCoeff = '';
 let indexOfUnit = '';
 
@@ -44,15 +45,13 @@ function handlerRadioButton() {
 
 function randomHandler() {
   indexOfDirect = getRandomValue(0, 15);
-  console.log(indexOfDirect);
   windDirection = hours[indexOfDirect];
-
   windSpeed = getRandomValue(1, 9);
   windCoeff = directCoefficient(windDirection);
   indexOfUnit = getIndexOfUnit();
-  setSubmitButtonState(false);
+
   const unitsName = indexOfUnit === 0 || indexOfUnit === 1 ? 'mil' : 'MOA';
-  koefficient =
+  bulletSurfKoef =
     unitsName === 'mil'
       ? getRandomValue(1, 6) / 10
       : getRandomValue(2, 21) / 10;
@@ -80,20 +79,24 @@ function randomHandler() {
 
   calculateLefOrRight(windDirection);
 
-  windCorrections(windSpeed, windCoeff, koefficient, priceOfClick, unitsName);
+  windCorrections(
+    windSpeed,
+    windCoeff,
+    bulletSurfKoef,
+    priceOfClick,
+    unitsName,
+  );
   answerText.textContent = '';
   clearForm();
 
   directText.textContent = windDirection;
   speedText.textContent = `${windSpeed} м/с`;
-  koefText.textContent = `${koefficient} ${unitsName}`;
-  // koefText.textContent = `${koefficient} ${coefUnits}`;
+  koefText.textContent = `${bulletSurfKoef} ${unitsName}`;
 
   directText.classList.add('active');
   speedText.classList.add('active');
   koefText.classList.add('active');
-
-  // setSubmitButtonState(false);
+  setSubmitButtonState(false);
 }
 function setSubmitButtonState(toggle) {
   return toggle
@@ -113,13 +116,13 @@ function handleSubmit(event) {
   userLeftOrRightDirection = directionValue;
   if (!userClickCorrection && !windDirection) {
     message = 'Ви не обрали задачу!';
-  } else if (clickCorrection === 0) {
+  } else if (clickCorrection === 0 && userClickCorrection === 0) {
     message = 'Відповідь вірна!';
-
+    setSubmitButtonState(false);
     stopTimer();
-    resetTimer(5);
+
     randomHandler();
-    // startTimer(5);
+    startTimer(5);
     answerText.classList.add('correct');
     answerText.classList.remove('wrong');
   } else if (
@@ -131,9 +134,9 @@ function handleSubmit(event) {
     answerText.classList.add('correct');
     answerText.classList.remove('wrong');
     stopTimer();
-    // resetTimer();
     startTimer(5);
     randomHandler();
+    clearForm();
   } else {
     message = `Відповідь невірна :(  Правильна відповідь: ${clickCorrection} ${correctClickWord(
       clickCorrection,
@@ -151,7 +154,6 @@ function getRandomValue(min, max) {
 }
 
 function getIndexOfUnit() {
-  // const опції = ['0.1 MRAD', '0.5 ТИС', '1/4 MOA', '1/8 MOA'];
   const randomNumber = Math.random();
 
   if (randomNumber < 0.6) {
@@ -166,21 +168,7 @@ function getIndexOfUnit() {
 }
 
 function windCorrections(speed, direct, koeff, price) {
-  // const calculateCorrections = (speed * direct * koeff).toFixed(2) / price;
   clickCorrection = Math.round((speed * direct * koeff).toFixed(2) / price);
-
-  // clickCorrection = Math.round(
-  //   name === 'moa' ? calculateCorrections * 3.5 : calculateCorrections,
-  // );
-  const isNull = clickCorrection < 1;
-  if (isNull) {
-    leftOrRight === 'CENTER';
-    message = 'Відповідь вірна!';
-    stopTimer();
-
-    startTimer(5);
-    randomHandler();
-  }
 }
 
 function clearForm() {
