@@ -33,13 +33,23 @@ export function stopTimer() {
 export function resetTimer(value) {
   stopTimer();
   if (value) {
-    initialSeconds -= value;
+    value = initialSeconds;
   }
-  // initialSeconds = 60;
-  seconds = initialSeconds;
+  initialSeconds = 60;
+
   updateTimerDisplay();
   hideTimerMessage();
 }
+// export function resetTimer(value) {
+//   stopTimer();
+//   if (value) {
+//     initialSeconds -= value;
+//   }
+//   // initialSeconds = 60;
+//   seconds = initialSeconds;
+//   updateTimerDisplay();
+//   hideTimerMessage();
+// }
 
 function updateTimer() {
   seconds--;

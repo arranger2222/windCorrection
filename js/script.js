@@ -44,11 +44,12 @@ function handlerRadioButton() {
 
 function randomHandler() {
   indexOfDirect = getRandomValue(0, 15);
+  console.log(indexOfDirect);
   windDirection = hours[indexOfDirect];
 
   windSpeed = getRandomValue(1, 9);
   windCoeff = directCoefficient(windDirection);
-  indexOfUnit = getRandomValue(0, 3);
+  indexOfUnit = getIndexOfUnit();
   setSubmitButtonState(false);
   const unitsName = indexOfUnit === 0 || indexOfUnit === 1 ? 'mil' : 'MOA';
   koefficient =
@@ -130,7 +131,7 @@ function handleSubmit(event) {
     answerText.classList.add('correct');
     answerText.classList.remove('wrong');
     stopTimer();
-    resetTimer();
+    // resetTimer();
     startTimer(5);
     randomHandler();
   } else {
@@ -139,7 +140,7 @@ function handleSubmit(event) {
     )} ${leftOrRight.toUpperCase()}`;
     answerText.classList.add('wrong');
     answerText.classList.remove('correct');
-    resetTimer();
+    resetTimer(60);
     setSubmitButtonState(false);
   }
   answerText.textContent = message;
@@ -147,6 +148,21 @@ function handleSubmit(event) {
 
 function getRandomValue(min, max) {
   return Math.round(Math.random() * (max - min) + min);
+}
+
+function getIndexOfUnit() {
+  // const опції = ['0.1 MRAD', '0.5 ТИС', '1/4 MOA', '1/8 MOA'];
+  const randomNumber = Math.random();
+
+  if (randomNumber < 0.6) {
+    return 0;
+  } else if (randomNumber < 0.8) {
+    return 1;
+  } else if (randomNumber < 0.9) {
+    return 2;
+  } else {
+    return 3;
+  }
 }
 
 function windCorrections(speed, direct, koeff, price) {
@@ -160,6 +176,10 @@ function windCorrections(speed, direct, koeff, price) {
   if (isNull) {
     leftOrRight === 'CENTER';
     message = 'Відповідь вірна!';
+    stopTimer();
+
+    startTimer(5);
+    randomHandler();
   }
 }
 

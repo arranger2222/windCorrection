@@ -87,7 +87,7 @@ function getFormData() {
 }
 
 const coords = [-100, -82, -66, -50, -32, -16, 0, 16, 32, 50, 66, 82, 100];
-// const coords = [-100, -66, -32, 0, 32, 66, 100];
+
 const scaleValues = ['0.1 MRAD', '0.5 ТИС', '1/4 MOA', '1/8 MOA'];
 const objToVisible = {
   leftRightContent,
@@ -219,13 +219,6 @@ function getScaleValue(element) {
   return scaleValues[value];
 }
 
-function doVisible(obj) {
-  const keys = Object.keys(obj);
-  keys.map(key => {
-    obj[key].classList.remove('hidden');
-  });
-}
-
 const getMilsFromCoords = function (value) {
   let range = 0;
   switch (value) {
@@ -352,10 +345,6 @@ function calculateHorizontalTurn() {
 }
 
 function correctClickWord(number) {
-  // if (number < 0 || number % 1 !== 0) {
-  //     return "Некоректне number";
-  // }
-
   if (number === 1 || (number % 100 > 20 && number % 10 === 1)) {
     return 'клік';
   } else if (
@@ -378,4 +367,11 @@ function getRandomBoolean() {
 
 function clearForm() {
   form.reset();
+}
+
+function doVisible(obj) {
+  const keys = Object.keys(obj);
+  keys.map(key => {
+    obj[key].classList.remove('hidden');
+  });
 }
