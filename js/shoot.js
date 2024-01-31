@@ -1,175 +1,150 @@
-const horizontalArrow = document.querySelector('.horizontal > img');
-const verticalArrow = document.querySelector('.vertical > img');
-const leftRightContent = document.querySelector('.left-right');
-const answerText = document.querySelector('.answer-message');
-const upDownContent = document.querySelector('.up-down');
-const randomBtn = document.querySelector('.random');
-const vRadio = document.querySelectorAll('.vRadio');
-const hRadio = document.querySelectorAll('.hRadio');
-const form = document.querySelector('.form-shoot');
-const scaleV = document.querySelector('.scale-v');
-const scaleH = document.querySelector('.scale-h');
-const vInput = document.getElementById('vInput');
-const hInput = document.getElementById('hInput');
-const hit = document.querySelector('.target');
-const btn_add = [...document.querySelectorAll('[data-increment]')];
-const btn_remove = [...document.querySelectorAll('[data-decrement]')];
-const inputWrapper = document.querySelector('.input-wrapper');
+import { getIndexOfUnit } from './getRandomArrayIndex.js';
 
-let leftOrRight = false;
-let clockwiseH = true;
-let scaleValueH = '';
-let milsH = 0;
-let clicksH = 0;
-let directToTurnH = '';
+const btn_removeRef = [...document.querySelectorAll('[data-decrement]')];
+const horizontalArrowRef = document.querySelector('.horizontal > img');
+const answerTextMessageRef = document.querySelector('.answer-message');
+const btn_addRef = [...document.querySelectorAll('[data-increment]')];
+const leftRightTextContentRef = document.querySelector('.left-right');
+const horizontalTurretScaleRef = document.querySelector('.scale-h');
+const verticalArrowRef = document.querySelector('.vertical > img');
+const verticalTurretScaleRef = document.querySelector('.scale-v');
+const horizontalInputFieldRef = document.getElementById('hInput');
+// const inputWrapperRef = document.querySelector('.input-wrapper');
+const upDownTextContentRef = document.querySelector('.up-down');
+const horizontalRadioRef = document.querySelectorAll('.hRadio');
+const verticalInputFieldRef = document.getElementById('vInput');
+const verticalRadioRef = document.querySelectorAll('.vRadio');
+const targetPointRef = document.querySelector('.target');
+const randomBtnRef = document.querySelector('.random');
+const formRef = document.querySelector('.form-shoot');
+const scopeUnitsRef = document.querySelector('.scope__info-units');
 
-let clockwiseV = true;
-let upOrDown = false;
-let scaleValueV = '';
-let milsV = 0;
-let clicksV = 0;
-let directToTurnV = '';
+let leftOrRightTurretLetter = '';
+let isClockwiseHorisontalTurret = true;
+let horisontalTurretScaleUnits = '';
 
-let vRadioValue = null;
-let hRadioValue = null;
-let vInputValue = null;
-let hInputValue = null;
+let upOrDownTurretLetter = '';
+let isClockwiseVerticalTurret = true;
+let verticalTurretScaleUnits = '';
+
+let calculatedDirectToTurnHorizontal = '';
+let calculatedDirectToTurnVertical = '';
+let calculatedHorizontalClicks = 0;
+let calculatedVerticalClicks = 0;
+let calculatedHorizontalRange = 0;
+let calculatedVerticalRange = 0;
+
+let userVerticalDirectValue = null;
+let userHorizontalDirectValue = null;
+let userVericalClicksValue = null;
+let userHorizontalClicksValue = null;
+
 let message = '';
-// let correctWordClick = '';
-
 let coordX = 0;
 let coordY = 0;
 
-form.addEventListener('submit', submitHandler);
-randomBtn.addEventListener('click', randomHandler);
-btn_add.forEach(btn => btn.addEventListener('click', increment));
-btn_remove.forEach(btn => btn.addEventListener('click', decrement));
-
-function decrement(e) {
-  const parent = e.target.parentElement;
-  const input = parent.querySelector('input[type="number"]');
-
-  let value = Number(input.value);
-
-  input.value > 0 ? (value -= 1) : (value = 0);
-  if (input.value === 0) {
-    value.input = '';
-    input.value = value;
-  }
-  input.value = value;
-}
-
-function increment(e) {
-  const input = e.target.previousElementSibling;
-
-  let value = Number(input.value);
-
-  value += 1;
-  input.value = value;
-}
-
-function getFormData() {
-  event.preventDefault();
-
-  vRadioValue = Array.from(vRadio).find(radio => radio.checked)?.value;
-  hRadioValue = Array.from(hRadio).find(radio => radio.checked)?.value;
-
-  // vRadioValue = vRadio.checked ? vRadio.value : null;
-  // hRadioValue = hRadio.checked ? hRadio.value : null;
-
-  vInputValue = vInput.value;
-  hInputValue = hInput.value;
-
-  console.log(vRadioValue);
-  console.log(hRadioValue);
-  console.log(vInputValue);
-  console.log(hInputValue);
-}
-
 const coords = [-100, -82, -66, -50, -32, -16, 0, 16, 32, 50, 66, 82, 100];
-
-const scaleValues = ['0.1 MRAD', '0.5 ТИС', '1/4 MOA', '1/8 MOA'];
+const pricesOfClick = ['0.1 MRAD', '0.5 ТИС', '1/4 MOA', '1/8 MOA'];
 const objToVisible = {
-  leftRightContent,
-  horizontalArrow,
-  upDownContent,
-  verticalArrow,
-  scaleV,
-  scaleH,
-  hit,
+  leftRightTextContentRef,
+  horizontalArrowRef,
+  upDownTextContentRef,
+  verticalArrowRef,
+  verticalTurretScaleRef,
+  horizontalTurretScaleRef,
+  targetPointRef,
 };
+
+formRef.addEventListener('submit', submitHandler);
+randomBtnRef.addEventListener('click', randomHandler);
+btn_addRef.forEach(btn => btn.addEventListener('click', increment));
+btn_removeRef.forEach(btn => btn.addEventListener('click', decrement));
+
+function randomHandler() {
+  moveShoot();
+  isClockwiseHorisontalTurret = getRandomBoolean();
+  isClockwiseVerticalTurret = getRandomBoolean();
+  isClockwise(isClockwiseHorisontalTurret, horizontalArrowRef);
+  isClockwise(isClockwiseVerticalTurret, verticalArrowRef);
+
+  horisontalTurretScaleUnits = getScaleValue(horizontalTurretScaleRef);
+  verticalTurretScaleUnits = horisontalTurretScaleUnits;
+  verticalTurretScaleRef.textContent = verticalTurretScaleUnits;
+
+  // verticalTurretScaleUnits = getScaleValue(verticalTurretScaleRef);
+  calculatedHorizontalClicks = calculateClicks(
+    calculatedHorizontalRange,
+    pricesOfClick.indexOf(horisontalTurretScaleUnits),
+  );
+  calculatedVerticalClicks = calculateClicks(
+    calculatedVerticalRange,
+    pricesOfClick.indexOf(verticalTurretScaleUnits),
+  );
+
+  isLeftOrRight();
+  isUpOrDown();
+
+  doVisible(objToVisible);
+}
 
 function submitHandler() {
   event.preventDefault();
 
-  directToTurnV = calculateVerticalTurn();
-  directToTurnH = calculateHorizontalTurn();
+  calculatedDirectToTurnVertical = calculateVerticalTurn();
+  calculatedDirectToTurnHorizontal = calculateHorizontalTurn();
   getFormData();
-  // clearForm();
 
   if (
-    directToTurnV === vRadioValue &&
-    directToTurnH === hRadioValue &&
-    vInputValue == clicksV &&
-    hInputValue == clicksH
+    calculatedDirectToTurnVertical === userVerticalDirectValue &&
+    calculatedDirectToTurnHorizontal === userHorizontalDirectValue &&
+    userVericalClicksValue == calculatedVerticalClicks &&
+    userHorizontalClicksValue == calculatedHorizontalClicks
   ) {
     message = 'answer right!!!';
-    answerText.classList.add('correct');
-    answerText.classList.remove('wrong');
+    answerTextMessageRef.classList.add('correct');
+    answerTextMessageRef.classList.remove('wrong');
     console.log('answer right!!!');
   } else {
-    console.log('horizontal', { clicksH, clockwiseH });
-    console.log('vertical', { clicksV, clockwiseV });
-    message = `Відповідь невірна:( Правильна відповідь: ${clicksV} ${correctClickWord(
-      clicksV,
+    console.log('horizontal', {
+      calculatedHorizontalClicks,
+      isClockwiseHorisontalTurret,
+    });
+    console.log('vertical', {
+      calculatedVerticalClicks,
+      isClockwiseVerticalTurret,
+    });
+    message = `Відповідь невірна:( Правильна відповідь: ${calculatedVerticalClicks} ${correctClickWord(
+      calculatedVerticalClicks,
     )} ${
-      clicksV > 0
-        ? clockwiseV
+      calculatedVerticalClicks > 0
+        ? isClockwiseVerticalTurret
           ? 'за годинниковою стрілкою'
           : 'проти годинникової стрілки'
         : ''
-    }  по вертикалі та ${clicksH} ${correctClickWord(clicksH)} ${
-      clicksH > 0
-        ? clockwiseH
+    }  по вертикалі та ${calculatedHorizontalClicks} ${correctClickWord(
+      calculatedHorizontalClicks,
+    )} ${
+      calculatedHorizontalClicks > 0
+        ? isClockwiseHorisontalTurret
           ? 'за годинниковою стрілкою'
           : 'проти годинникової стрілки'
         : ''
     } по горизонталі`;
     console.log('answer wrong!');
-    answerText.classList.add('wrong');
-    answerText.classList.remove('correct');
+    answerTextMessageRef.classList.add('wrong');
+    answerTextMessageRef.classList.remove('correct');
   }
 
   if (!isPageScrolledToBottom()) {
     scrollToBottom();
   }
 
-  answerText.textContent = message;
+  answerTextMessageRef.textContent = message;
   clearForm();
 }
 
 function scrollToBottom() {
   window.scrollTo(0, document.body.scrollHeight);
-}
-
-function randomHandler() {
-  moveShoot();
-  clockwiseH = getRandomBoolean();
-  clockwiseV = getRandomBoolean();
-  isClockwise(clockwiseH, horizontalArrow);
-  isClockwise(clockwiseV, verticalArrow);
-
-  scaleValueH = getScaleValue(scaleH);
-  scaleValueV = getScaleValue(scaleV);
-  clicksH = calculateClicks(milsH, scaleValues.indexOf(scaleValueH));
-  clicksV = calculateClicks(milsV, scaleValues.indexOf(scaleValueV));
-  // console.log('horizontal', { clicksH, clockwiseH });
-  // console.log('vertical', { clicksV, clockwiseV });
-
-  isLeftOrRight();
-  isUpOrDown();
-
-  doVisible(objToVisible);
 }
 
 function isPageScrolledToBottom() {
@@ -187,10 +162,10 @@ function moveShoot() {
     coordX = getRandomValue(0, 12);
     coordY = getRandomValue(0, 12);
   }
-  milsH = getMilsFromCoords(coords[coordX]);
-  milsV = getMilsFromCoords(coords[coordY]);
+  calculatedHorizontalRange = getMilsFromCoords(coords[coordX]);
+  calculatedVerticalRange = getMilsFromCoords(coords[coordY]);
 
-  hit.style.transform = `translate(${coords[coordX]}px, ${coords[coordY]}px )`;
+  targetPointRef.style.transform = `translate(${coords[coordX]}px, ${coords[coordY]}px )`;
 }
 
 function isClockwise(param, element) {
@@ -200,23 +175,21 @@ function isClockwise(param, element) {
 }
 
 function isLeftOrRight() {
-  leftOrRight = getRandomBoolean();
-  return leftOrRight
-    ? (leftRightContent.textContent = 'L')
-    : (leftRightContent.textContent = 'R');
+  leftOrRightTurretLetter = getRandomBoolean() ? 'L' : 'R';
+  leftRightTextContentRef.textContent = leftOrRightTurretLetter;
 }
 
 function isUpOrDown() {
-  upOrDown = getRandomBoolean();
-  return upOrDown
-    ? (upDownContent.textContent = 'U')
-    : (upDownContent.textContent = 'D');
+  upOrDownTurretLetter = getRandomBoolean() ? 'U' : 'D';
+  upDownTextContentRef.textContent = upOrDownTurretLetter;
 }
 
 function getScaleValue(element) {
-  const value = getRandomValue(0, 3);
-  element.textContent = scaleValues[value];
-  return scaleValues[value];
+  const value = getIndexOfUnit();
+  const unitsName = value === 0 || value === 1 ? 'mil' : 'MOA';
+  scopeUnitsRef.textContent = `- ${unitsName}`;
+  element.textContent = pricesOfClick[value];
+  return pricesOfClick[value];
 }
 
 const getMilsFromCoords = function (value) {
@@ -285,17 +258,21 @@ function calculateClicks(range, units) {
 function calculateVerticalTurn() {
   event.preventDefault();
   let vTurn = '';
-  if (upDownContent.textContent === 'U' && clockwiseV && coords[coordY] > 0) {
-    directToTurnV = 'right';
+  if (
+    upDownTextContentRef.textContent === 'U' &&
+    isClockwiseVerticalTurret &&
+    coords[coordY] > 0
+  ) {
+    calculatedDirectToTurnVertical = 'right';
   } else if (
-    upDownContent.textContent === 'D' &&
-    clockwiseV &&
+    upDownTextContentRef.textContent === 'D' &&
+    isClockwiseVerticalTurret &&
     coords[coordY] < 0
   ) {
     vTurn = 'right';
   } else if (
-    upDownContent.textContent === 'U' &&
-    !clockwiseV &&
+    upDownTextContentRef.textContent === 'U' &&
+    !isClockwiseVerticalTurret &&
     coords[coordY] < 0
   ) {
     vTurn = 'right';
@@ -312,26 +289,26 @@ function calculateHorizontalTurn() {
   event.preventDefault();
   let hTurn = '';
   if (
-    leftRightContent.textContent === 'R' &&
-    clockwiseH &&
+    leftRightTextContentRef.textContent === 'R' &&
+    isClockwiseHorisontalTurret &&
     coords[coordX] < 0
   ) {
     hTurn = 'right';
   } else if (
-    leftRightContent.textContent === 'R' &&
-    !clockwiseH &&
+    leftRightTextContentRef.textContent === 'R' &&
+    !isClockwiseHorisontalTurret &&
     coords[coordX] > 0
   ) {
     hTurn = 'right';
   } else if (
-    leftRightContent.textContent === 'L' &&
-    clockwiseH &&
+    leftRightTextContentRef.textContent === 'L' &&
+    isClockwiseHorisontalTurret &&
     coords[coordX] > 0
   ) {
     hTurn = 'right';
   } else if (
-    leftRightContent.textContent === 'L' &&
-    !clockwiseH &&
+    leftRightTextContentRef.textContent === 'L' &&
+    !isClockwiseHorisontalTurret &&
     coords[coordX] < 0
   ) {
     hTurn = 'right';
@@ -366,7 +343,7 @@ function getRandomBoolean() {
 }
 
 function clearForm() {
-  form.reset();
+  formRef.reset();
 }
 
 function doVisible(obj) {
@@ -374,4 +351,42 @@ function doVisible(obj) {
   keys.map(key => {
     obj[key].classList.remove('hidden');
   });
+}
+
+function getFormData() {
+  event.preventDefault();
+
+  userVerticalDirectValue = Array.from(verticalRadioRef).find(
+    radio => radio.checked,
+  )?.value;
+  userHorizontalDirectValue = Array.from(horizontalRadioRef).find(
+    radio => radio.checked,
+  )?.value;
+
+  userVericalClicksValue = verticalInputFieldRef.value;
+  userHorizontalClicksValue = horizontalInputFieldRef.value;
+
+  console.log(userVerticalDirectValue);
+  console.log(userHorizontalDirectValue);
+  console.log(userVericalClicksValue);
+  console.log(userHorizontalClicksValue);
+}
+
+function decrement(e) {
+  const parent = e.target.parentElement;
+  const input = parent.querySelector('input[type="number"]');
+  let value = Number(input.value);
+  input.value > 0 ? (value -= 1) : (value = 0);
+  if (input.value === 0) {
+    value.input = '';
+    input.value = value;
+  }
+  input.value = value;
+}
+
+function increment(e) {
+  const input = e.target.previousElementSibling;
+  let value = Number(input.value);
+  value += 1;
+  input.value = value;
 }
