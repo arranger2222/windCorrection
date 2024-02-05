@@ -60,6 +60,7 @@ randomBtnRef.addEventListener('click', randomHandler);
 btn_addRef.forEach(btn => btn.addEventListener('click', increment));
 btn_removeRef.forEach(btn => btn.addEventListener('click', decrement));
 
+// =========================== RANDOM HANDLER =================================
 function randomHandler() {
   moveShoot();
   isClockwiseHorisontalTurret = getRandomBoolean();
@@ -76,6 +77,7 @@ function randomHandler() {
     calculatedHorizontalRange,
     pricesOfClick.indexOf(horisontalTurretScaleUnits),
   );
+
   calculatedVerticalClicks = calculateClicks(
     calculatedVerticalRange,
     pricesOfClick.indexOf(verticalTurretScaleUnits),
@@ -84,14 +86,32 @@ function randomHandler() {
   isLeftOrRight();
   isUpOrDown();
 
+  calculatedDirectToTurnVertical = calculateVerticalTurn(
+    upDownTextContentRef.textContent,
+    isClockwiseVerticalTurret,
+    coords[coordY],
+  );
+  calculatedDirectToTurnHorizontal = calculateHorizontalTurn(
+    leftRightTextContentRef.textContent,
+    isClockwiseHorisontalTurret,
+    coords[coordX],
+  );
+
+  console.log('calculatedHorizontalClicks', calculatedHorizontalClicks);
+  console.log('calculatedVerticalClicks', calculatedVerticalClicks);
+  console.log('directToTurnHorizontal', calculatedDirectToTurnHorizontal);
+  console.log('directToTurnVertical', calculatedDirectToTurnVertical);
+
   doVisible(objToVisible);
 }
+
+// =========================== SUBMIT HANDLER =================================
 
 function submitHandler() {
   event.preventDefault();
 
-  calculatedDirectToTurnVertical = calculateVerticalTurn();
-  calculatedDirectToTurnHorizontal = calculateHorizontalTurn();
+  // calculatedDirectToTurnVertical = calculateVerticalTurn();
+  // calculatedDirectToTurnHorizontal = calculateHorizontalTurn();
   getFormData();
 
   if (
@@ -165,6 +185,9 @@ function moveShoot() {
   calculatedHorizontalRange = getMilsFromCoords(coords[coordX]);
   calculatedVerticalRange = getMilsFromCoords(coords[coordY]);
 
+  console.log('horizontal Range:', calculatedHorizontalRange);
+  console.log('vertical Range:', calculatedVerticalRange);
+
   targetPointRef.style.transform = `translate(${coords[coordX]}px, ${coords[coordY]}px )`;
 }
 
@@ -232,11 +255,11 @@ const getMilsFromCoords = function (value) {
   return range;
 };
 
-function calculateClicks(range, units) {
+function calculateClicks(range, index) {
   let quantity = 0;
   // console.log('range', range);
-  // console.log('units', units);
-  switch (units) {
+  // console.log('index', index);
+  switch (index) {
     case 0:
       quantity = range * 10;
       break;
@@ -244,10 +267,10 @@ function calculateClicks(range, units) {
       quantity = range * 2;
       break;
     case 2:
-      quantity = range * 14;
+      quantity = range * 4;
       break;
     case 3:
-      quantity = range * 28;
+      quantity = range * 8;
       break;
     default:
       range;
@@ -255,70 +278,66 @@ function calculateClicks(range, units) {
   return quantity;
 }
 
-function calculateVerticalTurn() {
-  event.preventDefault();
-  let vTurn = '';
-  if (
-    upDownTextContentRef.textContent === 'U' &&
-    isClockwiseVerticalTurret &&
-    coords[coordY] > 0
-  ) {
-    calculatedDirectToTurnVertical = 'right';
-  } else if (
-    upDownTextContentRef.textContent === 'D' &&
-    isClockwiseVerticalTurret &&
-    coords[coordY] < 0
-  ) {
-    vTurn = 'right';
-  } else if (
-    upDownTextContentRef.textContent === 'U' &&
-    !isClockwiseVerticalTurret &&
-    coords[coordY] < 0
-  ) {
-    vTurn = 'right';
-  } else if (coords[coordY] === 0) {
-    vTurn = 'center';
+function calculateVerticalTurn(letter, isClockwise, coord) {
+  // console.log('letter', letter);
+  // console.log('isClockwise', isClockwise);
+  // console.log('coord', coord);
+  let verticalTurn = '';
+
+  if (letter === 'U' && isClockwise && coord > 0) {
+    verticalTurn = 'clockwise';
+  } else if (letter === 'U' && !isClockwise && coord > 0) {
+    verticalTurn = 'anticlockwise';
+  } else if (letter === 'U' && isClockwise && coord < 0) {
+    verticalTurn = 'anticlockwise';
+  } else if (letter === 'U' && !isClockwise && coord < 0) {
+    verticalTurn = 'clockwise';
+  } else if (letter === 'D' && isClockwise && coord < 0) {
+    verticalTurn = 'clockwise';
+  } else if (letter === 'D' && !isClockwise && coord < 0) {
+    verticalTurn = 'anticlockwise';
+  } else if (letter === 'D' && isClockwise && coord > 0) {
+    verticalTurn = 'anticlockwise';
+  } else if (letter === 'D' && !isClockwise && coord > 0) {
+    verticalTurn = 'clockwise';
+  } else if (coord === 0) {
+    verticalTurn = 'center';
   } else {
-    vTurn = 'left';
+    verticalTurn = 'anticlockwise';
   }
 
-  return vTurn;
+  return verticalTurn;
 }
 
-function calculateHorizontalTurn() {
-  event.preventDefault();
-  let hTurn = '';
-  if (
-    leftRightTextContentRef.textContent === 'R' &&
-    isClockwiseHorisontalTurret &&
-    coords[coordX] < 0
-  ) {
-    hTurn = 'right';
-  } else if (
-    leftRightTextContentRef.textContent === 'R' &&
-    !isClockwiseHorisontalTurret &&
-    coords[coordX] > 0
-  ) {
-    hTurn = 'right';
-  } else if (
-    leftRightTextContentRef.textContent === 'L' &&
-    isClockwiseHorisontalTurret &&
-    coords[coordX] > 0
-  ) {
-    hTurn = 'right';
-  } else if (
-    leftRightTextContentRef.textContent === 'L' &&
-    !isClockwiseHorisontalTurret &&
-    coords[coordX] < 0
-  ) {
-    hTurn = 'right';
-  } else if (coords[coordX] === 0) {
-    hTurn = 'center';
+function calculateHorizontalTurn(letter, isClockwise, coord) {
+  // console.log('letter', letter);
+  // console.log('isClockwise', isClockwise);
+  // console.log('coord', coord);
+  let horizontalTurn = '';
+
+  if (letter === 'L' && isClockwise && coord > 0) {
+    horizontalTurn = 'clockwise';
+  } else if (letter === 'L' && !isClockwise && coord > 0) {
+    horizontalTurn = 'anticlockwise';
+  } else if (letter === 'L' && isClockwise && coord < 0) {
+    horizontalTurn = 'anticlockwise';
+  } else if (letter === 'L' && !isClockwise && coord < 0) {
+    horizontalTurn = 'clockwise';
+  } else if (letter === 'R' && isClockwise && coord < 0) {
+    horizontalTurn = 'clockwise';
+  } else if (letter === 'R' && !isClockwise && coord < 0) {
+    horizontalTurn = 'anticlockwise';
+  } else if (letter === 'R' && isClockwise && coord > 0) {
+    horizontalTurn = 'anticlockwise';
+  } else if (letter === 'R' && !isClockwise && coord > 0) {
+    horizontalTurn = 'clockwise';
+  } else if (coord === 0) {
+    horizontalTurn = 'center';
   } else {
-    hTurn = 'left';
+    horizontalTurn = 'anticlockwise';
   }
 
-  return hTurn;
+  return horizontalTurn;
 }
 
 function correctClickWord(number) {
