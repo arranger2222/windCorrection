@@ -66,20 +66,19 @@ btn_removeRef.forEach(btn => btn.addEventListener('click', decrement));
 horizontalRadioRef.forEach(radio => {
   radio.addEventListener('change', () => {
     isVerticalRadioChecked = true;
-    console.log(isVerticalRadioChecked);
+
     handlerRadioButton();
   });
 });
 verticalRadioRef.forEach(radio => {
   radio.addEventListener('change', () => {
     isHorizontalRadioChecked = true;
-    console.log(isHorizontalRadioChecked);
+
     handlerRadioButton();
   });
 });
 
 function handlerRadioButton() {
-  console.log('checked');
   return isVerticalRadioChecked && isHorizontalRadioChecked
     ? setSubmitButtonState(true)
     : false;
@@ -155,6 +154,8 @@ function submitHandler() {
     answerTextMessageRef.classList.add('correct');
     answerTextMessageRef.classList.remove('wrong');
     setSubmitButtonState(false);
+    clearForm();
+    targetPointRef.classList.add('hidden');
     // console.log('answer right!!!');
   } else {
     // console.log('horizontal', {
