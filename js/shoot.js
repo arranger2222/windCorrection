@@ -17,6 +17,7 @@ const verticalRadioRef = document.querySelectorAll('.vRadio');
 const targetPointRef = document.querySelector('.target');
 const randomBtnRef = document.querySelector('.random');
 const formRef = document.querySelector('.form-shoot');
+const submitButton = document.querySelector('.submit__shoot');
 const scopeUnitsRef = document.querySelector('.scope__info-units');
 
 let leftOrRightTurretLetter = '';
@@ -43,6 +44,9 @@ let message = '';
 let coordX = 0;
 let coordY = 0;
 
+let isVerticalRadioChecked = false;
+let isHorizontalRadioChecked = false;
+
 const coords = [-100, -82, -66, -50, -32, -16, 0, 16, 32, 50, 66, 82, 100];
 const pricesOfClick = ['0.1 MRAD', '0.5 ТИС', '1/4 MOA', '1/8 MOA'];
 const objToVisible = {
@@ -59,6 +63,33 @@ formRef.addEventListener('submit', submitHandler);
 randomBtnRef.addEventListener('click', randomHandler);
 btn_addRef.forEach(btn => btn.addEventListener('click', increment));
 btn_removeRef.forEach(btn => btn.addEventListener('click', decrement));
+horizontalRadioRef.forEach(radio => {
+  radio.addEventListener('change', () => {
+    isVerticalRadioChecked = true;
+    console.log(isVerticalRadioChecked);
+    handlerRadioButton();
+  });
+});
+verticalRadioRef.forEach(radio => {
+  radio.addEventListener('change', () => {
+    isHorizontalRadioChecked = true;
+    console.log(isHorizontalRadioChecked);
+    handlerRadioButton();
+  });
+});
+
+function handlerRadioButton() {
+  console.log('checked');
+  return isVerticalRadioChecked && isHorizontalRadioChecked
+    ? setSubmitButtonState(true)
+    : false;
+}
+
+function setSubmitButtonState(toggle) {
+  return toggle
+    ? (submitButton.disabled = false)
+    : (submitButton.disabled = true);
+}
 
 // =========================== RANDOM HANDLER =================================
 function randomHandler() {
@@ -123,6 +154,7 @@ function submitHandler() {
     message = 'Відповідь вірна!:)';
     answerTextMessageRef.classList.add('correct');
     answerTextMessageRef.classList.remove('wrong');
+    setSubmitButtonState(false);
     // console.log('answer right!!!');
   } else {
     // console.log('horizontal', {
@@ -135,24 +167,17 @@ function submitHandler() {
     // });
     message = `Відповідь невірна:( Правильна відповідь: ${calculatedVerticalClicks} ${correctClickWord(
       calculatedVerticalClicks,
-    )} ${
-      calculatedVerticalClicks > 0
-        ? isClockwiseVerticalTurret
-          ? 'за годинниковою стрілкою'
-          : 'проти годинникової стрілки'
-        : ''
-    }  по вертикалі та ${calculatedHorizontalClicks} ${correctClickWord(
+    )} ${correctDirectionInWrongAnswer(
+      calculatedDirectToTurnVertical,
+    )}  по вертикалі та ${calculatedHorizontalClicks} ${correctClickWord(
       calculatedHorizontalClicks,
-    )} ${
-      calculatedHorizontalClicks > 0
-        ? isClockwiseHorisontalTurret
-          ? 'за годинниковою стрілкою'
-          : 'проти годинникової стрілки'
-        : ''
-    } по горизонталі`;
+    )} ${correctDirectionInWrongAnswer(
+      calculatedDirectToTurnHorizontal,
+    )} по горизонталі`;
     // console.log('answer wrong!');
     answerTextMessageRef.classList.add('wrong');
     answerTextMessageRef.classList.remove('correct');
+    setSubmitButtonState(false);
   }
 
   if (!isPageScrolledToBottom()) {
@@ -404,4 +429,17 @@ function increment(e) {
   let value = Number(input.value);
   value += 1;
   input.value = value;
+}
+
+function correctDirectionInWrongAnswer(direction) {
+  switch (direction) {
+    case 'clockwise':
+      return 'за годинниковою стрілкою';
+    case 'anticlockwise':
+      return 'проти годинникової стрілки';
+    case 'center':
+      return '';
+    default:
+      return 'Невідомий напрямок';
+  }
 }
