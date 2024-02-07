@@ -97,21 +97,21 @@ function randomHandler() {
     coords[coordX],
   );
 
-  console.log('calculatedHorizontalClicks', calculatedHorizontalClicks);
-  console.log('calculatedVerticalClicks', calculatedVerticalClicks);
-  console.log('directToTurnHorizontal', calculatedDirectToTurnHorizontal);
-  console.log('directToTurnVertical', calculatedDirectToTurnVertical);
+  // console.log('Vertical Clicks', calculatedVerticalClicks);
+  // console.log('Vertical', calculatedDirectToTurnVertical);
+
+  // console.log('Horizontal Clicks', calculatedHorizontalClicks);
+  // console.log('Horizontal', calculatedDirectToTurnHorizontal);
 
   doVisible(objToVisible);
+  clearForm();
+  answerTextMessageRef.textContent = '';
 }
 
 // =========================== SUBMIT HANDLER =================================
 
 function submitHandler() {
   event.preventDefault();
-
-  // calculatedDirectToTurnVertical = calculateVerticalTurn();
-  // calculatedDirectToTurnHorizontal = calculateHorizontalTurn();
   getFormData();
 
   if (
@@ -123,7 +123,7 @@ function submitHandler() {
     message = 'answer right!!!';
     answerTextMessageRef.classList.add('correct');
     answerTextMessageRef.classList.remove('wrong');
-    console.log('answer right!!!');
+    // console.log('answer right!!!');
   } else {
     console.log('horizontal', {
       calculatedHorizontalClicks,
@@ -150,7 +150,7 @@ function submitHandler() {
           : 'проти годинникової стрілки'
         : ''
     } по горизонталі`;
-    console.log('answer wrong!');
+    // console.log('answer wrong!');
     answerTextMessageRef.classList.add('wrong');
     answerTextMessageRef.classList.remove('correct');
   }
@@ -160,7 +160,7 @@ function submitHandler() {
   }
 
   answerTextMessageRef.textContent = message;
-  clearForm();
+  // clearForm();
 }
 
 function scrollToBottom() {
@@ -170,10 +170,6 @@ function scrollToBottom() {
 function isPageScrolledToBottom() {
   return window.innerHeight + window.scrollY >= document.body.scrollHeight;
 }
-
-// function checkAnswer(){
-
-// }
 
 function moveShoot() {
   coordX = getRandomValue(0, 12);
@@ -185,8 +181,8 @@ function moveShoot() {
   calculatedHorizontalRange = getMilsFromCoords(coords[coordX]);
   calculatedVerticalRange = getMilsFromCoords(coords[coordY]);
 
-  console.log('horizontal Range:', calculatedHorizontalRange);
-  console.log('vertical Range:', calculatedVerticalRange);
+  // console.log('horizontal Range:', calculatedHorizontalRange);
+  // console.log('vertical Range:', calculatedVerticalRange);
 
   targetPointRef.style.transform = `translate(${coords[coordX]}px, ${coords[coordY]}px )`;
 }
@@ -385,10 +381,10 @@ function getFormData() {
   userVericalClicksValue = verticalInputFieldRef.value;
   userHorizontalClicksValue = horizontalInputFieldRef.value;
 
-  console.log(userVerticalDirectValue);
-  console.log(userHorizontalDirectValue);
-  console.log(userVericalClicksValue);
-  console.log(userHorizontalClicksValue);
+  // console.log(userVerticalDirectValue);
+  // console.log(userHorizontalDirectValue);
+  // console.log(userVericalClicksValue);
+  // console.log(userHorizontalClicksValue);
 }
 
 function decrement(e) {
