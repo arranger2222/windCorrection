@@ -120,19 +120,19 @@ function submitHandler() {
     userVericalClicksValue == calculatedVerticalClicks &&
     userHorizontalClicksValue == calculatedHorizontalClicks
   ) {
-    message = 'answer right!!!';
+    message = 'Відповідь вірна!:)';
     answerTextMessageRef.classList.add('correct');
     answerTextMessageRef.classList.remove('wrong');
     // console.log('answer right!!!');
   } else {
-    console.log('horizontal', {
-      calculatedHorizontalClicks,
-      isClockwiseHorisontalTurret,
-    });
-    console.log('vertical', {
-      calculatedVerticalClicks,
-      isClockwiseVerticalTurret,
-    });
+    // console.log('horizontal', {
+    //   calculatedHorizontalClicks,
+    //   isClockwiseHorisontalTurret,
+    // });
+    // console.log('vertical', {
+    //   calculatedVerticalClicks,
+    //   isClockwiseVerticalTurret,
+    // });
     message = `Відповідь невірна:( Правильна відповідь: ${calculatedVerticalClicks} ${correctClickWord(
       calculatedVerticalClicks,
     )} ${
