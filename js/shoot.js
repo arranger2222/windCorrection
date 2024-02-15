@@ -1,5 +1,6 @@
 import { getIndexOfUnit } from './getRandomArrayIndex.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
+import { createMark, clearAllMarks } from './marksList.js';
 
 const btn_removeRef = [...document.querySelectorAll('[data-decrement]')];
 const horizontalArrowRef = document.querySelector('.horizontal > img');
@@ -10,7 +11,6 @@ const horizontalTurretScaleRef = document.querySelector('.scale-h');
 const verticalArrowRef = document.querySelector('.vertical > img');
 const verticalTurretScaleRef = document.querySelector('.scale-v');
 const horizontalInputFieldRef = document.getElementById('hInput');
-// const inputWrapperRef = document.querySelector('.input-wrapper');
 const upDownTextContentRef = document.querySelector('.up-down');
 const horizontalRadioRef = document.querySelectorAll('.hRadio');
 const verticalInputFieldRef = document.getElementById('vInput');
@@ -153,6 +153,7 @@ function submitHandler() {
     clearForm();
     stopTimer();
     startTimer(5);
+    createMark();
 
     targetPointRef.classList.add('hidden');
     randomHandler();
@@ -180,6 +181,7 @@ function submitHandler() {
     answerTextMessageRef.classList.remove('correct');
     setSubmitButtonState(false);
     resetTimer(60);
+    clearAllMarks();
   }
 
   if (!isPageScrolledToBottom()) {
@@ -223,7 +225,7 @@ function isClockwise(param, element) {
 function isLeftOrRight() {
   leftOrRightTurretLetter = getRandomBoolean() ? 'L' : 'R';
   leftRightTextContentRef.textContent = leftOrRightTurretLetter;
-  console.log('random letter -', leftOrRightTurretLetter);
+  // console.log('random letter -', leftOrRightTurretLetter);
 }
 
 function isUpOrDown() {
@@ -334,34 +336,34 @@ function calculateVerticalTurn(letter, isClockwise, coord) {
 }
 
 function calculateHorizontalTurn(letter, isClockwise, coord) {
-  console.log('letter', letter);
-  console.log('isClockwise', isClockwise);
-  console.log('coord', coord);
+  // console.log('letter', letter);
+  // console.log('isClockwise', isClockwise);
+  // console.log('coord', coord);
   let horizontalTurn = '';
 
   if (letter === 'L' && isClockwise && coord > 0) {
-    console.log('case 1');
+    // console.log('case 1');
     horizontalTurn = 'clockwise';
   } else if (letter === 'L' && !isClockwise && coord > 0) {
-    console.log('case 2');
+    // console.log('case 2');
     horizontalTurn = 'anticlockwise';
   } else if (letter === 'L' && isClockwise && coord < 0) {
-    console.log('case 3');
+    // console.log('case 3');
     horizontalTurn = 'anticlockwise';
   } else if (letter === 'L' && !isClockwise && coord < 0) {
-    console.log('case 4');
+    // console.log('case 4');
     horizontalTurn = 'clockwise';
   } else if (letter === 'R' && isClockwise && coord < 0) {
-    console.log('case 5');
+    // console.log('case 5');
     horizontalTurn = 'clockwise';
   } else if (letter === 'R' && !isClockwise && coord < 0) {
-    console.log('case 6');
+    // console.log('case 6');
     horizontalTurn = 'anticlockwise';
   } else if (letter === 'R' && isClockwise && coord > 0) {
-    console.log('case 7');
+    // console.log('case 7');
     horizontalTurn = 'anticlockwise';
   } else if (letter === 'R' && !isClockwise && coord > 0) {
-    console.log('case 8');
+    // console.log('case 8');
     horizontalTurn = 'clockwise';
   } else if (coord === 0) {
     horizontalTurn = 'center';

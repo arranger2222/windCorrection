@@ -309,3 +309,24 @@ input[type='number']::-webkit-outer-spin-button {
   margin-bottom: 30px;
   max-width: 60%;
 }
+
+.marks {
+  display: flex;
+}
+
+.marks-list {
+  display: flex;
+  // outline: 1px solid red;
+  list-style: none;
+  // width: 100%;
+  padding: 0;
+
+  &__item {
+    &:not(last-child) {
+      margin-right: 10px;
+    }
+  }
+}
+.correct-mark {
+  width: 20px;
+}

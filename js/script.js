@@ -1,5 +1,6 @@
 import { hours } from './hours.js';
 import { directCoefficient } from './calculateCoefficient.js';
+import { createMark, clearAllMarks } from './marksList.js';
 import { calculateLefOrRight, leftOrRight } from './calculateDirection.js';
 import {
   directionRadioButtons,
@@ -42,6 +43,8 @@ const pricesOfClick = ['0.1 MRAD', '0.5 ТИС', '1/4 MOA', '1/8 MOA'];
 function handlerRadioButton() {
   setSubmitButtonState(true);
 }
+
+//=========================== RANDOM  HANDLER ==================================
 
 function randomHandler() {
   indexOfDirect = getRandomValue(0, 15);
@@ -104,6 +107,8 @@ function setSubmitButtonState(toggle) {
     : (submitButton.disabled = true);
 }
 
+//========================== SUBMIT ================================
+
 function handleSubmit(event) {
   event.preventDefault();
 
@@ -137,6 +142,7 @@ function handleSubmit(event) {
     startTimer(5);
     randomHandler();
     clearForm();
+    createMark();
   } else {
     message = `Відповідь невірна :(  Правильна відповідь: ${clickCorrection} ${correctClickWord(
       clickCorrection,
@@ -145,6 +151,7 @@ function handleSubmit(event) {
     answerText.classList.remove('correct');
     resetTimer(60);
     setSubmitButtonState(false);
+    clearAllMarks();
   }
   answerText.textContent = message;
 }
