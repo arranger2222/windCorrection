@@ -2,11 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
-    <link rel="icon" type="image/x-icon" href="./assets/mil-dot.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Рухома ціль</title>
+    <link rel="icon" type="image/x-icon" href="./assets/mil-dot.ico" />
     <link rel="stylesheet" type="text/css" href="./css/main.css" />
-    <title>Пристрілка прицілу</title>
   </head>
   <body>
     <header>
@@ -27,15 +26,25 @@
               >
             </li>
             <li class="nav-item">
-              <a href="./shoot_correction.html" class="nav-link nav-link-active"
+              <a href="./shoot_correction.html" class="nav-link"
                 >пристрілка прицілу</a
               >
             </li>
-            <!-- <li class="nav-item">
-              <a href="./moving_target.html" class="nav-link">рухома ціль</a>
-            </li> -->
+            <li class="nav-item">
+              <a href="./moving_target.html" class="nav-link nav-link-active"
+                >рухома ціль</a
+              >
+            </li>
           </ul>
         </nav>
+
+        <!-- ========================= TIMER ============================= -->
+
+        <!-- <button class="start-timer">Start</button> -->
+        <!-- <button onclick="stopTimer()">Stop</button>
+          <button onclick="resetTimer()">Reset</button> -->
+
+        <!-- ============================== SWITCH ================================ -->
 
         <div class="toggle-container">
           <p class="toggle-title">таймер</p>
@@ -48,16 +57,12 @@
             </label>
           </div>
         </div>
+
+        <!-- ===================================================================== -->
       </div>
     </header>
-
-    <div class="backdrop hidden">
-      <p class="attention">Час вичерпано</p>
-      <button class="again-btn">Спробувати ще</button>
-    </div>
-
     <div class="container">
-      <h1 class="shoot-title">Задачі на пристрілку приціла</h1>
+      <h1 class="shoot-title">Стрільба по рухомих цілях</h1>
       <div
         id="timer"
         class="timer-numbers timer-numbers-hidden timer-shoot"
@@ -246,7 +251,5 @@
         <p class="answer-message answer-message__shoot"></p>
       </div>
     </div>
-    <script src="./js/timer.js" type="module"></script>
-    <script type="module" src="./js/shoot.js"></script>
   </body>
 </html>

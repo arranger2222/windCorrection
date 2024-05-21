@@ -9,6 +9,7 @@ import {
   buttonRandom,
   submitButton,
   directText,
+  directHint,
   speedText,
   koefText,
   form,
@@ -36,48 +37,54 @@ let windDirection = '';
 let bulletSurfKoef = '';
 let windSpeed = 0;
 let windCoeff = '';
-let indexOfUnit = '';
+let nameOfUnit = '';
 
-const pricesOfClick = ['0.1 MRAD', '0.5 ТИС', '1/4 MOA', '1/8 MOA'];
+// const pricesOfClick = ['0.1 MRAD', '0.5 ТИС', '1/4 MOA', '1/8 MOA'];
 
 function handlerRadioButton() {
   setSubmitButtonState(true);
+  // console.log(event.currentTarget.value);
+  directHint.textContent = event.currentTarget.value;
 }
 
 //=========================== RANDOM  HANDLER ==================================
 
 function randomHandler() {
+  event.preventDefault();
   indexOfDirect = getRandomValue(0, 15);
   windDirection = hours[indexOfDirect];
   windSpeed = getRandomValue(1, 9);
   windCoeff = directCoefficient(windDirection);
-  indexOfUnit = getIndexOfUnit();
+  nameOfUnit = getNameOfUnit();
 
-  const unitsName = indexOfUnit === 0 || indexOfUnit === 1 ? 'mil' : 'MOA';
+  const unitsName = nameOfUnit;
+  // === 'mil' || nameOfUnit === 'ТИС' ? 'mil' : 'MOA';
   bulletSurfKoef =
     unitsName === 'mil'
-      ? getRandomValue(1, 6) / 10
-      : getRandomValue(2, 21) / 10;
+      ? getRandomValue(1, 10) / 10
+      : getRandomValue(1, 30) / 10;
 
-  switch (indexOfUnit) {
-    case 0:
-      priceOfClick = 0.1;
-      break;
-    case 1:
-      priceOfClick = 0.5;
-      break;
-    case 2:
-      priceOfClick = 0.25;
-      break;
-    case 3:
-      priceOfClick = 0.125;
-      break;
+  // switch (indexOfUnit) {
+  //   case 0:
+  //     priceOfClick = 0.1;
+  //     break;
+  //   case 1:
+  //     priceOfClick = 0.5;
+  //     break;
+  //   case 2:
+  //     priceOfClick = 0.25;
+  //     break;
+  //   case 3:
+  //     priceOfClick = 0.125;
+  //     break;
 
-    default:
-      break;
-  }
+  //   default:
+  //     break;
+  // }
 
-  hint.textContent = pricesOfClick[indexOfUnit];
+  hint.textContent = nameOfUnit;
+  directHint.textContent = ' ';
+
   startTimer();
 
   calculateLefOrRight(windDirection);
@@ -86,8 +93,8 @@ function randomHandler() {
     windSpeed,
     windCoeff,
     bulletSurfKoef,
-    priceOfClick,
-    unitsName,
+    // priceOfClick,
+    // unitsName,
   );
   answerText.textContent = '';
   clearForm();
@@ -125,7 +132,7 @@ function handleSubmit(event) {
     message = 'Відповідь вірна!';
     setSubmitButtonState(false);
     stopTimer();
-
+    createMark();
     randomHandler();
     startTimer(5);
     answerText.classList.add('correct');
@@ -138,21 +145,25 @@ function handleSubmit(event) {
     message = 'Відповідь вірна!';
     answerText.classList.add('correct');
     answerText.classList.remove('wrong');
+    hint.textContent = ' ';
     stopTimer();
     startTimer(5);
     randomHandler();
     clearForm();
     createMark();
   } else {
-    message = `Відповідь невірна :(  Правильна відповідь: ${clickCorrection} ${correctClickWord(
-      clickCorrection,
-    )} ${leftOrRight.toUpperCase()}`;
+    message = `Відповідь невірна :(  Правильна відповідь: ${clickCorrection} ${nameOfUnit}
+      ${leftOrRight.toUpperCase()}`;
+    // message = `Відповідь невірна :(  Правильна відповідь: ${clickCorrection} ${correctClickWord(
+    //   clickCorrection,
+    // )} ${leftOrRight.toUpperCase()}`;
     answerText.classList.add('wrong');
     answerText.classList.remove('correct');
     resetTimer(60);
     setSubmitButtonState(false);
     clearAllMarks();
   }
+
   answerText.textContent = message;
 }
 
@@ -160,22 +171,18 @@ function getRandomValue(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 
-function getIndexOfUnit() {
+function getNameOfUnit() {
   const randomNumber = Math.random();
 
-  if (randomNumber < 0.6) {
-    return 0;
-  } else if (randomNumber < 0.8) {
-    return 1;
-  } else if (randomNumber < 0.9) {
-    return 2;
+  if (randomNumber < 0.7) {
+    return 'mil';
   } else {
-    return 3;
+    return 'MOA';
   }
 }
 
-function windCorrections(speed, direct, koeff, price) {
-  clickCorrection = Math.round((speed * direct * koeff).toFixed(2) / price);
+function windCorrections(speed, direct, koeff) {
+  clickCorrection = Math.round((speed * direct * koeff).toFixed(2));
 }
 
 function clearForm() {

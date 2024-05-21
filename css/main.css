@@ -507,7 +507,7 @@ form {
 }
 
 .result-input {
-  width: 100%;
+  width: 65%;
   max-width: 350px;
   height: 40px;
   margin: 4px 0;
@@ -539,6 +539,21 @@ form {
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
+}
+
+.input-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.hint-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  font-size: medium;
+  color: #f00;
 }
 
 .toggle-container {
@@ -763,9 +778,9 @@ header {
   width: 5px;
   height: 5px;
   border-radius: 50px;
-  border: 1px solid red;
+  border: 1px solid #000;
   z-index: 10;
-  background-color: red;
+  background-color: #000;
 }
 .scope__info {
   color: #801515;
@@ -821,8 +836,9 @@ header {
   width: 7px;
   height: 7px;
   border-radius: 50px;
-  border: 0.1px solid black;
-  background-color: black;
+  border: 0.1px solid #f00;
+  background-color: #f00;
+  z-index: 10;
 }
 
 .random {

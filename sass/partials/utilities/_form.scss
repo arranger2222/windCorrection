@@ -25,10 +25,11 @@ form {
 }
 
 .result-input {
-  width: 100%;
+  width: 65%;
   max-width: 350px;
   height: 40px;
   margin: 4px 0;
+  // margin: 4px 0 20px 0;
   padding-left: 25px;
   font-size: 15px;
   color: $black;
@@ -55,4 +56,25 @@ form {
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
+}
+
+.input-wrap {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  // margin: 0 auto;
+  // outline: 1px solid red;
+  // padding: 0 20px;
+}
+
+.hint-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // outline: 1px solid green;
+  width: 70px;
+  font-size: medium;
+  color: $red;
+  // text-transform: uppercase;
 }

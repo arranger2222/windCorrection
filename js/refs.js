@@ -7,7 +7,8 @@ const directText = document.querySelector('.direct');
 const speedText = document.querySelector('.speed');
 const koefText = document.querySelector('.koef');
 const form = document.querySelector('.form');
-const hint = document.querySelector('.hint-units');
+const hint = document.querySelector('.answer-units');
+const directHint = document.querySelector('.user-direct');
 
 export {
   directionRadioButtons,
@@ -16,6 +17,7 @@ export {
   buttonRandom,
   submitButton,
   directText,
+  directHint,
   speedText,
   koefText,
   form,

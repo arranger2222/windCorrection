@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wind correction</title>
+    <title>Поправки на вітер</title>
     <link rel="icon" type="image/x-icon" href="./assets/mil-dot.ico" />
     <link rel="stylesheet" type="text/css" href="./css/main.css" />
   </head>
@@ -21,24 +21,17 @@
         <nav class="navigation">
           <ul class="nav-list">
             <li class="nav-item">
-              <a href="#" class="nav-link nav-link-active">wind</a>
+              <a href="./index.html" class="nav-link nav-link-active"
+                >поправки на вітер</a
+              >
             </li>
             <li class="nav-item">
-              <a href="./shoot_correction.html" class="nav-link">shoot</a>
+              <a href="./shoot_correction.html" class="nav-link"
+                >пристрілка прицілу</a
+              >
             </li>
             <!-- <li class="nav-item">
-              <a
-                href="./shoot_correction.html"
-                class="nav-link nav-link-disabled"
-                >distance</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                href="./shoot_correction.html"
-                class="nav-link nav-link-disabled"
-                >moving target</a
-              >
+              <a href="./moving_target.html" class="nav-link">рухома ціль</a>
             </li> -->
           </ul>
         </nav>
@@ -73,7 +66,7 @@
     <div class="container">
       <div id="timer" class="timer-numbers timer-numbers-hidden"></div>
       <div class="content">
-        <h1>Задачі на визначення поправок на вітер</h1>
+        <h1>Визначення поправок на вітер</h1>
         <ul class="input-data-list">
           <li class="data-list-item">
             <h3 class="wind-direction">Напрямок вітру</h3>
@@ -91,14 +84,19 @@
         <button type="button" class="random">Нова задача</button>
 
         <form class="form" autocomplete="off" onsubmit="handleSubmit(event)">
-          <input
-            type="text"
-            name="correction"
-            class="result-input"
-            placeholder="Введіть кількість кліків та вкажіть напрям*"
-          />
-          <p class="wrong hint">
-            *Ціна кліку барабанчика <span class="hint-units">--</span>
+          <div class="input-wrap">
+            <div class="hint-wrap"><p class="user-direct"></p></div>
+
+            <input
+              type="text"
+              name="correction"
+              class="result-input"
+              placeholder="Введіть поправку* та вкажіть напрям"
+            />
+            <div class="hint-wrap"><p class="answer-units"></p></div>
+          </div>
+          <p class="wrong hint-round">
+            *Значення поправки заокругліть до цілого значення
           </p>
           <!-- <label for="size">Ціна кліка</label>
             <select id="size" name="size">

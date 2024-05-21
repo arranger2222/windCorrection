@@ -47,9 +47,9 @@
     width: 5px;
     height: 5px;
     border-radius: 50px;
-    border: 1px solid red;
+    border: 1px solid #000;
     z-index: 10;
-    background-color: red;
+    background-color: #000;
   }
   &__info {
     color: $darkRed;
@@ -109,8 +109,9 @@
   width: 7px;
   height: 7px;
   border-radius: 50px;
-  border: 0.1px solid black;
-  background-color: black;
+  border: 0.1px solid $red;
+  background-color: $red;
+  z-index: 10;
 }
 
 .random {
