@@ -119,12 +119,13 @@ function setSubmitButtonState(toggle) {
 function handleSubmit(event) {
   event.preventDefault();
 
-  const correctionValue = correctionInput.value;
+  const correctionValue = correctionInput.value.replace(',', '.');
   const directionValue = Array.from(directionRadioButtons).find(
     radio => radio.checked,
   )?.value;
 
-  userClickCorrection = Number(correctionValue);
+  userClickCorrection = correctionValue;
+  // userClickCorrection = Number(correctionValue);
   userLeftOrRightDirection = directionValue;
   if (!userClickCorrection && !windDirection) {
     message = 'Ви не обрали задачу!';
@@ -182,7 +183,7 @@ function getNameOfUnit() {
 }
 
 function windCorrections(speed, direct, koeff) {
-  clickCorrection = Math.round((speed * direct * koeff).toFixed(2));
+  clickCorrection = (speed * direct * koeff).toFixed(1);
 }
 
 function clearForm() {
